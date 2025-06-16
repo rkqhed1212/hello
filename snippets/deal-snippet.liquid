@@ -1,0 +1,13 @@
+{% if product.metafields.dtx.deal-time.value != blank %}
+<div id="product-deal-count">
+  <dtx-product-dealtimer>
+  <div class="deal_count">
+    {% if settings.timer_heading != blank %}
+    <label class="deal-lable">{{ settings.timer_heading}}</label>
+    {% endif %}
+    {% assign initTime = product.metafields.dtx.deal-time.value | date: "%m/%d/%Y %H:%M:%S" %}
+    <div class="deal-clock lof-clock-{{ productID }}-detail dT_dealTimer dtx-deal-timer" data-time="@{{initTime}}" data-itemID="{{productID}}"></div>
+  </div>
+  </dtx-product-dealtimer>
+</div>
+{% endif %}

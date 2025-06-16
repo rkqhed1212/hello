@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-template",
+      "blocks": {
+        "bd5fe641-75f6-4c13-999c-d0be32e3bc87": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "7c9c1efb-83bb-46b0-abe9-7c4951265cf4": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "db797c60-1d3c-4034-b55d-151ec5cae2d7": {
+          "type": "deal",
+          "settings": {
+          }
+        },
+        "c0548d06-402e-4234-9a58-03c52a7d6c74": {
+          "type": "type",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "bd5fe641-75f6-4c13-999c-d0be32e3bc87",
+        "7c9c1efb-83bb-46b0-abe9-7c4951265cf4",
+        "db797c60-1d3c-4034-b55d-151ec5cae2d7",
+        "c0548d06-402e-4234-9a58-03c52a7d6c74"
+      ],
+      "settings": {
+        "gallery_type": "thumbnails_horizontal",
+        "vertical_style": "dt-sc-product-vertical-thumb-right",
+        "enable_zoom": false,
+        "enable_video_looping": true,
+        "reviews": true,
+        "show_variants_swatches": true,
+        "show_size_chart": false,
+        "show_product_quantity": true,
+        "display_back_in_stock": true,
+        "show_quantity_selector": true,
+        "show_checkout": false,
+        "hide_addtocart": false,
+        "show_wishlist": true,
+        "show_share_buttons": true,
+        "tab_position": "bottom",
+        "product_tab1": true,
+        "product_tab1_heading": "Product Description",
+        "product_tab2": true,
+        "product_tab2_heading": "Additional information",
+        "page_content": "how-to-brew-method",
+        "product_tab3": true,
+        "product_tab3_heading": "Reviews",
+        "enable_enquiry": true,
+        "enable_sticky_cart": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "show_product_recommendations": true,
+        "heading": "Recommended Products",
+        "heading_position": "text-center"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-recommendations"
+  ]
+}

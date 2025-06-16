@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Analysis of Copywriting & CRM Leaders</title>
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard to deconstruct the dense report. A primary navigation panel allows users to select a leader, which dynamically updates a central content area with their specific profile, including visualized frameworks and key metrics. This is followed by a comparative analysis section featuring an interactive radar chart to visually contrast leader philosophies. This non-linear, task-oriented structure was chosen over a simple linear scroll to empower users to easily explore, compare, and synthesize the information, dramatically improving usability and comprehension. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Individual Leader Profiles -> Goal: Inform/Explore -> Viz/Presentation: Dynamic HTML cards with styled tags (for Tone/Style) and custom HTML/CSS process diagrams (for Frameworks) -> Interaction: Click leader's icon to update the main view -> Justification: Transforms walls of text into scannable, visually engaging, and structured information blocks. Library: Vanilla JS.
+        - Report Info: Comparison of Leader Philosophies -> Goal: Compare/Analyze -> Viz/Presentation: Interactive Radar Chart -> Interaction: User can toggle leaders on/off via checkboxes to see their philosophies plotted against dimensions like 'Data-Driven' or 'Empathy-Focused' -> Justification: Provides powerful, immediate, and multi-dimensional visual comparison of qualitative data, which is far more insightful than reading paragraphs of comparative text. Library: Chart.js.
+        - Report Info: Overarching Principles -> Goal: Summarize/Inform -> Viz/Presentation: Styled HTML cards in a grid layout -> Interaction: Static display for clarity -> Justification: Presents the key takeaways of the report in a clear, digestible format.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #38332F;
+        }
+        
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button.active {
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            background-color: #4A5568;
+            color: white;
+        }
+        
+        .content-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .framework-step {
+            border-left: 3px solid #D1D5DB;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-2">A Pantheon of Copywriting Masters</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">From the foundational principles of USP to the data-driven world of modern CRM, explore the minds that shaped persuasive communication.</p>
+        </header>
+
+        <main>
+            <!-- Leader Selection Nav -->
+            <section id="leader-selection" class="mb-12">
+                <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Select a Leader to Explore</h2>
+                <div id="nav-container" class="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+                    <!-- Nav buttons will be injected here by JS -->
+                </div>
+            </section>
+
+            <!-- Dynamic Leader Content -->
+            <section id="leader-content" class="mb-16 md:mb-24 min-h-[600px]">
+                <!-- Content will be injected here by JS -->
+            </section>
+
+            <!-- Comparative Analysis -->
+            <section id="comparison-section" class="py-16 bg-white rounded-2xl shadow-inner-lg border border-gray-200">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">Comparative Analysis</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Visually compare the core philosophies of the leaders. Select one or more to see how they stack up.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div id="chart-controls" class="md:col-span-1 p-6 bg-gray-50 rounded-xl">
+                        <h3 class="text-lg font-bold mb-4 text-gray-700">Compare Leaders</h3>
+                        <!-- Checkboxes will be injected here -->
+                    </div>
+                    <div class="md:col-span-3">
+                        <div class="chart-container">
+                            <canvas id="leaderComparisonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Overarching Principles -->
+            <section id="principles-section" class="mt-16 md:mt-24">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 mb-2">Core Principles of Success</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">Distilled from all experts, these principles are key to integrating copywriting and customer-centric strategies effectively.</p>
+                </div>
+                <div id="principles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                    <!-- Principles will be injected here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const leadersData = {
+                reeves: {
+                    id: 'reeves',
+                    name: 'Rosser Reeves',
+                    title: 'The USP Pioneer',
+                    initials: 'RR',
+                    bgColor: 'bg-red-700',
+                    overview: 'A titan of mid-20th-century advertising, Reeves introduced the powerful concept of the Unique Selling Proposition (USP), insisting every ad must make a specific, exclusive promise.',
+                    toneAndStyle: ['Direct', 'Repetitive', 'Benefit-Driven', 'Hard-Sell'],
+                    framework: {
+                        name: 'The Unique Selling Proposition (USP)',
+                        steps: [
+                            'Discover one truly unique promise or benefit.',
+                            'Highlight why this benefit is critically important to the customer.',
+                            'Ensure the promise is exclusive and competitors cannot offer it.',
+                            'Embed this single message relentlessly across all advertising.'
+                        ]
+                    },
+                    crmIntegration: 'Reeves\'s USP is a foundational concept for modern CRM. It defines the core value proposition that a CRM system then helps deliver to segmented audiences, ensuring message consistency and relevance.',
+                    impact: {
+                        metric: 'Iconic Slogans',
+                        description: 'Authored legendary taglines like "M&M\'s melt in your mouth, not in your hand," demonstrating the lasting power of a strong USP.'
+                    },
+                    chartData: [2, 1, 5, 2, 5]
+                },
+                schwartz: {
+                    id: 'schwartz',
+                    name: 'Eugene M. Schwartz',
+                    title: 'Prospect-First Messaging',
+                    initials: 'ES',
+                    bgColor: 'bg-orange-600',
+                    overview: 'A legendary direct-response copywriter and author of "Breakthrough Advertising," Schwartz taught that all great copy must begin inside the prospect\'s world.',
+                    toneAndStyle: ['Empathetic', 'Narrative', 'Psychological', 'In-depth'],
+                    framework: {
+                        name: 'Prospect Awareness & Market Sophistication',
+                        steps: [
+                            'Identify the prospect\'s level of awareness (from unaware of the problem to product-aware).',
+                            'Understand the market\'s sophistication (how many similar claims they\'ve heard).',
+                            'Craft your headline and lead to meet them exactly where they are.',
+                            'Introduce the product as the inevitable bridge from their problem to their desire.'
+                        ]
+                    },
+                    crmIntegration: 'Schwartz\'s "Levels of Awareness" is a blueprint for lead nurturing in a CRM. It dictates the type of content needed to move a lead from one stage to the next, from educational to sales-focused.',
+                    impact: {
+                        metric: 'Bestselling Book',
+                        description: '"Breakthrough Advertising" is considered a foundational text for direct response marketing, studied for decades.'
+                    },
+                    chartData: [4, 5, 5, 2, 4]
+                },
+                makepeace: {
+                    id: 'makepeace',
+                    name: 'Clayton Makepeace',
+                    title: 'One-to-One Conversationalist',
+                    initials: 'CM',
+                    bgColor: 'bg-green-700',
+                    overview: 'Dubbed the "World\'s Highest-Paid Copywriter," Makepeace championed a deeply personal, one-to-one conversational style, making readers feel he was speaking directly to them.',
+                    toneAndStyle: ['Conversational', 'Personal', 'Direct', 'YOU-Focused'],
+                    framework: {
+                        name: 'The 4-Legged Stool',
+                        steps: [
+                            'Strong emotional headline and lead.',
+                            'Over-the-top proof for every claim.',
+                            'A totally irresistible offer.',
+                            'A powerful guarantee that reverses all risk.'
+                        ]
+                    },
+                    crmIntegration: 'His "one-to-one" philosophy is the goal of CRM personalization. By using customer data, CRMs aim to automate the conversational, "YOU-focused" style Makepeace perfected manually.',
+                    impact: {
+                        metric: '$1.5 Billion+',
+                        description: 'In sales reportedly generated for his clients in the health and finance industries through his direct mail copy.'
+                    },
+                    chartData: [3, 5, 4, 3, 3]
+                },
+                graham: {
+                    id: 'graham',
+                    name: 'Gordon Graham',
+                    title: 'B2B White Paper Expert',
+                    initials: 'GG',
+                    bgColor: 'bg-sky-700',
+                    overview: 'A modern B2B specialist and AWAI Copywriter of the Year, Graham excels at applying classic USP principles through authoritative, research-backed white papers.',
+                    toneAndStyle: ['Authoritative', 'Evidence-Based', 'Professional', 'Logical'],
+                    framework: {
+                        name: 'Evidence-Led USP Refinement',
+                        steps: [
+                            'Conduct deep customer and stakeholder interviews.',
+                            'Analyze market positioning to find a unique angle.',
+                            'Refine the core value proposition into a defensible USP.',
+                            'Back it up with irrefutable evidence: case studies, stats, and ROI data.'
+                        ]
+                    },
+                    crmIntegration: 'Graham\'s methodology for creating white papers is a high-value lead generation strategy. The leads captured are funneled into a CRM for long-term B2B sales cycles, nurtured with the same evidence-based content.',
+                    impact: {
+                        metric: 'Copywriter of the Year',
+                        description: 'Awarded by AWAI (American Writers & Artists Inc.), a top honor in the direct-response industry.'
+                    },
+                    chartData: [5, 3, 5, 1, 4]
+                },
+                wiebe: {
+                    id: 'wiebe',
+                    name: 'Joanna Wiebe',
+                    title: 'Founder, Copyhackers',
+                    initials: 'JW',
+                    bgColor: 'bg-teal-600',
+                    overview: 'Widely recognized as the "original conversion copywriter," she established a practice that moves copywriting from a purely creative endeavor to a data-informed discipline focused on measurable results.',
+                    toneAndStyle: ['Direct', 'Data-Driven', 'Instructive', 'Empathetic', 'Formulaic'],
+                    framework: {
+                        name: 'The 5-Step Conversion Copywriting Process',
+                        steps: [
+                            'Find the message and hook in Voice of Customer (VoC) data.',
+                            'Select a persuasion framework (e.g., AIDA, PAS) based on the hook.',
+                            'Fill the framework with raw VoC data.',
+                            'Refine the copy to "make it sound great without losing its rawness."',
+                            'Validate, measure, and optimize the copy post-launch.'
+                        ]
+                    },
+                    crmIntegration: 'Her detailed framework for optimizing email automation sequences is a direct application of conversion copywriting within a CRM context. She focuses on cadence, performance mapping, triggers, and segmentation to nurture leads and drive sales.',
+                    impact: {
+                        metric: '18% Lift',
+                        description: 'in trial-to-subscribe rate for Prezi using her "Breakthrough-or-bust" email methodology.'
+                    },
+                    chartData: [5, 4, 4, 2, 3]
+                },
+                deiss: {
+                    id: 'deiss',
+                    name: 'Ryan Deiss',
+                    title: 'Founder, DigitalMarketer.com',
+                    initials: 'RD',
+                    bgColor: 'bg-blue-600',
+                    overview: 'An influential strategist who created the "Customer Value Optimization" (CVO) methodology, providing a systematic approach to customer acquisition, engagement, and long-term value maximization.',
+                    toneAndStyle: ['Authoritative', 'Strategic', 'Action-Oriented', 'Educational', 'Prescriptive'],
+                    framework: {
+                        name: 'The 8-Step Customer Value Journey',
+                        steps: ['Awareness', 'Engage', 'Subscribe', 'Convert', 'Excite', 'Ascend', 'Advocate', 'Promote']
+                    },
+                    crmIntegration: 'The CVO journey is a blueprint for a CRM-driven operation. Each stage—from capturing leads (Subscribe) to increasing customer value (Ascend)—relies on CRM functionalities like automation, segmentation, and tracking.',
+                    impact: {
+                        metric: '80% Conversion',
+                        description: 'of trial customers into paying ones for a client using DigitalMarketer\'s "ELITE" program strategies.'
+                    },
+                    chartData: [4, 3, 5, 3, 3]
+                },
+                handley: {
+                    id: 'handley',
+                    name: 'Ann Handley',
+                    title: 'Chief Content Officer, MarketingProfs',
+                    initials: 'AH',
+                    bgColor: 'bg-rose-600',
+                    overview: 'A champion of high-quality, engaging, and deeply empathetic content. She advocates for a style of communication that forges strong customer relationships and transcends "marketing mediocrity."',
+                    toneAndStyle: ['Conversational', 'Humorous', 'Empathetic', 'Clear', 'Encouraging'],
+                    framework: {
+                        name: 'The 4-Step "Unclog Your Copy" Process',
+                        steps: [
+                            'Draft 1: Put all your players on the field.',
+                            'Draft 2: Keep only your strongest players.',
+                            'Draft 3: Invite your reader in.',
+                            'Draft 4: Is it enjoyable?'
+                        ]
+                    },
+                    crmIntegration: 'Her philosophy of using content for genuine connection directly fuels CRM. Engaging content generates leads and interactions that are managed in a CRM, while her focus on an authentic brand voice makes CRM communications (like emails) more effective.',
+                    impact: {
+                        metric: '600,000+',
+                        description: 'marketers subscribe to MarketingProfs, a testament to the appeal of her content-led approach.'
+                    },
+                    chartData: [2, 5, 3, 1, 2]
+                },
+                quist: {
+                    id: 'quist',
+                    name: 'Dela Quist',
+                    title: 'Founder, Alchemy Worx',
+                    initials: 'DQ',
+                    bgColor: 'bg-amber-600',
+                    overview: 'A data-driven email marketing provocateur known for his contrarian perspectives. He champions the strategic use of increased email frequency and emphasizes the branding power of the email inbox.',
+                    toneAndStyle: ['Provocative', 'Data-Backed', 'Persuasive', 'Results-Oriented'],
+                    framework: {
+                        name: 'Email Frequency Optimization & Inbox Branding',
+                        steps: [
+                            'Test aggressively to find the optimal email sending frequency.',
+                            'View unopened emails as brand "billboards" in the inbox.',
+                            'Re-engage "inactives" rather than culling them, focusing on buying behavior.',
+                            'Prioritize reach and frequency to maximize market coverage.'
+                        ]
+                    },
+                    crmIntegration: 'His strategies are deeply reliant on CRM. Testing email frequency requires robust segmentation. Re-engaging inactives and tracking lifetime value are core CRM-driven processes. His approach is essentially a data-heavy CRM optimization play.',
+                    impact: {
+                        metric: '411% Boost',
+                        description: 'in total conversions for a client via campaigns informed by his ROI-focused audience engagement strategies.'
+                    },
+                    chartData: [5, 2, 3, 5, 2]
+                },
+                white: {
+                    id: 'white',
+                    name: 'Chad S. White',
+                    title: 'Head of Research, Oracle',
+                    initials: 'CW',
+                    bgColor: 'bg-indigo-600',
+                    overview: 'A leading authority on email marketing rules, best practices, and compliance. His work provides a comprehensive operational framework for building effective, sustainable, and customer-centric email programs.',
+                    toneAndStyle: ['Informative', 'Professional', 'Authoritative', 'Meticulous', 'Nuanced'],
+                    framework: {
+                        name: 'Customer Journey Optimization via Triggered Emails',
+                        steps: [
+                            'Identify over 110 potential friction points in the customer experience.',
+                            'Develop high-performance triggered emails to address these points (e.g., welcome, cart abandonment).',
+                            'Use data for personalization, but be transparent and avoid "creepiness."',
+                            'Focus on Customer Lifetime Value (CLV) as a primary metric.'
+                        ]
+                    },
+                    crmIntegration: 'His entire philosophy is built on CRM. Triggered emails are a core CRM function. Personalization, segmentation, and CLV tracking are all managed within a CRM. His "rules" are essentially a guide to maintaining a healthy, effective CRM.',
+                    impact: {
+                        metric: 'Must-Read',
+                        description: 'His book "Email Marketing Rules" is considered the "gold standard" for email marketers by industry leaders.'
+                    },
+                    chartData: [4, 3, 5, 1, 5]
+                },
+                danna: {
+                    id: 'danna',
+                    name: 'Doug D’Anna',
+                    title: 'The Prospect-to-Product Bridge',
+                    initials: 'DD',
+                    bgColor: 'bg-purple-600',
+                    overview: 'A multi-million-dollar direct-response expert who excels at building a powerful bridge between the prospect\'s world and the product through relatable, immersive storytelling.',
+                    toneAndStyle: ['Story-Driven', 'Relatable', 'Emotional', 'Persuasive'],
+                    framework: {
+                        name: 'The Relatability Bridge',
+                        steps: [
+                            'Immerse yourself completely in the prospect\'s world and their specific pain points.',
+                            'Craft a compelling and highly relatable story that mirrors their experience.',
+                            'Introduce the product not as a feature-list, but as the natural, logical solution within the story.',
+                            'Tie the product directly to the resolution of their emotional journey.'
+                        ]
+                    },
+                    crmIntegration: 'D\'Anna\'s storytelling approach provides the narrative fuel for CRM campaigns. Case studies and customer success stories, managed and segmented in a CRM, can be crafted using his method to build relatability at scale.',
+                    impact: {
+                        metric: '$100 Million+',
+                        description: 'Reported sales generated for his clients through direct-response campaigns over his career.'
+                    },
+                    chartData: [2, 5, 4, 2, 2]
+                }
+            };
+
+            const principlesData = [{
+                title: "Define a Unique, Defensible Promise (USP)",
+                icon: "🎯",
+                description: "First, identify and articulate a specific, exclusive benefit your product offers. This core promise, as pioneered by Rosser Reeves, is the foundation of all messaging."
+            }, {
+                title: "Begin in the Customer's World",
+                icon: "🌎",
+                description: "Understand your prospect’s deepest pains, problems, and desires. Frame your message to meet them where they are, a core tenet from masters like Eugene Schwartz."
+            }, {
+                title: "Map the Journey, Then Write for Each Stage",
+                icon: "🗺️",
+                description: "Define customer lifecycle stages in your CRM, then craft targeted copy designed to effectively guide customers from one phase to the next."
+            }, {
+                title: "Test, Measure, & Iterate Relentlessly",
+                icon: "🔄",
+                description: "Adopt a culture of continuous improvement, using CRM data and A/B testing to constantly evaluate and refine copy and strategy. Eliminate guesswork."
+            }, ];
+
+            const navContainer = document.getElementById('nav-container');
+            const contentContainer = document.getElementById('leader-content');
+            const chartControlsContainer = document.getElementById('chart-controls');
+            const leaderOrder = ['reeves', 'schwartz', 'makepeace', 'graham', 'danna', 'wiebe', 'deiss', 'handley', 'quist', 'white'];
+
+            function renderLeaderContent(leaderId) {
+                const leader = leadersData[leaderId];
+                if (!leader) return;
+
+                const toneTags = leader.toneAndStyle.map(tag =>
+                    `<span class="inline-block bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-medium mr-2 mb-2">${tag}</span>`
+                ).join('');
+
+                const frameworkSteps = leader.framework.steps.map(step =>
+                    `<li class="relative pl-8 pb-4 framework-step">
+                <div class="absolute left-[-6px] top-1.5 w-3 h-3 bg-gray-400 rounded-full"></div>
+                <p class="text-gray-700">${step}</p>
+            </li>`
+                ).join('');
+
+                contentContainer.innerHTML = `
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start animate-fade-in">
+                <div class="lg:col-span-1 p-8 content-card flex flex-col items-center text-center">
+                    <div class="w-24 h-24 ${leader.bgColor} rounded-full flex items-center justify-center text-white text-4xl font-bold mb-4">${leader.initials}</div>
+                    <h3 class="text-2xl font-bold text-gray-800">${leader.name}</h3>
+                    <p class="text-gray-600 mb-6">${leader.title}</p>
+                    <p class="text-gray-600 text-sm">${leader.overview}</p>
+                </div>
+
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="p-8 content-card">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">Signature Tone & Style</h4>
+                        <div>${toneTags}</div>
+                    </div>
+                    <div class="p-8 content-card">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">Core Framework: <span class="font-medium text-gray-700">${leader.framework.name}</span></h4>
+                        <ul class="list-none">${frameworkSteps}</ul>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         <div class="p-6 content-card">
+                            <h4 class="text-xl font-bold mb-2 text-gray-800">Modern CRM Integration</h4>
+                            <p class="text-gray-600">${leader.crmIntegration}</p>
+                        </div>
+                        <div class="p-6 content-card bg-gray-800 text-white">
+                            <h4 class="text-lg font-bold mb-2 text-gray-200">Proof of Impact</h4>
+                            <p class="text-4xl font-extrabold text-white">${leader.impact.metric}</p>
+                            <p class="text-gray-300">${leader.impact.description}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                document.querySelectorAll('.nav-button').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.leader === leaderId);
+                });
+            }
+
+            // Initial population
+            leaderOrder.forEach(leaderId => {
+                const leader = leadersData[leaderId];
+                // Nav Buttons
+                const button = document.createElement('button');
+                button.className = `nav-button w-20 h-20 ${leader.bgColor} text-white font-bold text-2xl rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105`;
+                button.textContent = leader.initials;
+                button.dataset.leader = leader.id;
+                button.addEventListener('click', () => renderLeaderContent(leader.id));
+                navContainer.appendChild(button);
+
+                // Chart Controls
+                const controlDiv = document.createElement('div');
+                controlDiv.className = 'flex items-center mb-2';
+                controlDiv.innerHTML = `
+            <input type="checkbox" id="check-${leader.id}" data-leader-id="${leader.id}" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" checked>
+            <label for="check-${leader.id}" class="ml-3 block text-sm font-medium text-gray-700">${leader.name}</label>
+        `;
+                chartControlsContainer.appendChild(controlDiv);
+            });
+
+            // Principles Section
+            const principlesContainer = document.getElementById('principles-container');
+            principlesData.forEach(principle => {
+                const card = document.createElement('div');
+                card.className = 'p-6 content-card text-center';
+                card.innerHTML = `
+            <div class="text-4xl mb-4">${principle.icon}</div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">${principle.title}</h3>
+            <p class="text-gray-600">${principle.description}</p>
+        `;
+                principlesContainer.appendChild(card);
+            });
+
+            // Chart.js Initialization
+            const ctx = document.getElementById('leaderComparisonChart').getContext('2d');
+            const chartLabels = ['Data-Driven', 'Empathy-Focused', 'Systematic', 'Provocative', 'Rules-Focused'];
+            const chartColors = {
+                reeves: 'rgba(185, 28, 28, 0.4)',
+                schwartz: 'rgba(234, 88, 12, 0.4)',
+                makepeace: 'rgba(22, 101, 52, 0.4)',
+                graham: 'rgba(3, 105, 161, 0.4)',
+                wiebe: 'rgba(13, 148, 136, 0.4)',
+                deiss: 'rgba(37, 99, 235, 0.4)',
+                handley: 'rgba(225, 29, 72, 0.4)',
+                quist: 'rgba(217, 119, 6, 0.4)',
+                white: 'rgba(79, 70, 229, 0.4)',
+                danna: 'rgba(126, 34, 206, 0.4)'
+            };
+            const chartBorderColors = {
+                reeves: 'rgba(185, 28, 28, 1)',
+                schwartz: 'rgba(234, 88, 12, 1)',
+                makepeace: 'rgba(22, 101, 52, 1)',
+                graham: 'rgba(3, 105, 161, 1)',
+                wiebe: 'rgba(13, 148, 136, 1)',
+                deiss: 'rgba(37, 99, 235, 1)',
+                handley: 'rgba(225, 29, 72, 1)',
+                quist: 'rgba(217, 119, 6, 1)',
+                white: 'rgba(79, 70, 229, 1)',
+                danna: 'rgba(126, 34, 206, 1)'
+            };
+
+            const datasets = leaderOrder.map(id => {
+                const leader = leadersData[id];
+                return {
+                    label: leader.name,
+                    data: leader.chartData,
+                    backgroundColor: chartColors[leader.id],
+                    borderColor: chartBorderColors[leader.id],
+                    borderWidth: 2,
+                    pointBackgroundColor: chartBorderColors[leader.id],
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: chartBorderColors[leader.id],
+                    hidden: false
+                };
+            });
+
+            const leaderComparisonChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: chartLabels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: '#4B5563'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                stepSize: 1,
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart toggle logic
+            document.querySelectorAll('#chart-controls input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const leaderId = e.target.dataset.leaderId;
+                    const datasetIndex = leaderComparisonChart.data.datasets.findIndex(d => d.label === leadersData[leaderId].name);
+                    if (datasetIndex > -1) {
+                        leaderComparisonChart.data.datasets[datasetIndex].hidden = !e.target.checked;
+                        leaderComparisonChart.update();
+                    }
+                });
+            });
+
+            // Initial Load
+            renderLeaderContent('reeves');
+
+        });
+    </script>
+
+</body>
+
+</html>

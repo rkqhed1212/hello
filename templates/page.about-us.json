@@ -1,0 +1,440 @@
+{
+  "sections": {
+    "main": {
+      "type": "about-us",
+      "disabled": true,
+      "settings": {
+      }
+    },
+    "1643365458286233b1": {
+      "type": "home-specification-block",
+      "blocks": {
+        "cde0630b-95ff-4b6e-9d41-c8ed0aeb29a0": {
+          "type": "icon",
+          "settings": {
+            "title": "Mission",
+            "desc": "We at Kteashop believe that happiness can be found in the simplest of things, like the aroma of your favorite tea brewing or the sight of a delicious treat. It is thanks to these moments that we can create memories to warm your heart and soul. Our mission is to deliver special moments right to your doorstep, and to enable a community of inclusivness and sharing.",
+            "link_text": "View More",
+            "link": "",
+            "reverse_column": false
+          }
+        },
+        "90e0e108-a928-48d1-9370-dfbd4cdcf7f5": {
+          "type": "icon",
+          "settings": {
+            "title": "Vision",
+            "desc": "We share a deep passion for Korean culture, which has inspired us to create Ktea Shop, a place where we curate a diverse range of Korean products and provide a welcoming space for people to come together, share stories, and create beautiful memories. Our own journey and the creation of Ktea Shop have taught us valuable lessons. We want to inspire you to pursue your dreams, redefine what success means to you, and prioritize the meaningful moments spent with your loved ones. We believe in the power of resilience, embracing different cultures, and the impact of sharing and caring for one another.",
+            "link_text": "View More",
+            "link": "",
+            "reverse_column": false
+          }
+        },
+        "39d23ef7-8200-4cbf-9235-6841d6f93563": {
+          "type": "icon",
+          "settings": {
+            "title": "Value",
+            "desc": "At Kteashop, our core belief is in the power of connection with yourself and the significance of caring for the ones who matter most in your life. We are dedicated to creating moments of self-reflection as well as warmth and togetherness. Through our thoughtfully crafted products and menus, we strive to create unique experiences and connections.",
+            "link_text": "View More",
+            "link": "",
+            "reverse_column": false
+          }
+        }
+      },
+      "block_order": [
+        "cde0630b-95ff-4b6e-9d41-c8ed0aeb29a0",
+        "90e0e108-a928-48d1-9370-dfbd4cdcf7f5",
+        "39d23ef7-8200-4cbf-9235-6841d6f93563"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,100",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_image": "shopify:\/\/shop_images\/image.webp",
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "At KTea Shop, our goal is to create a community united by our shared passion",
+        "section_sub_heading": "",
+        "section_description": "The Korean culture brings us together, inspiring us to cultivate meaningful connections and spread unique experiences.",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "#44533c",
+        "section_sub_heading_color": "#000000",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "column_gap": "80px",
+        "vertical_position": "position-vertical-center",
+        "content_width": "45\/50",
+        "content_width_lap": "40\/55",
+        "content_width_tab": "35\/65",
+        "enable_image": true,
+        "primary_image": "shopify:\/\/shop_images\/Screenshot_2023-02-21_at_7.44.39_PM_cd673537-d78a-420e-b2cd-d7de8649d242.png",
+        "primary_title": "",
+        "primary_sub_title": "",
+        "primary_description": "",
+        "primary_button_text": "",
+        "primary_button_link": "",
+        "main_banner_style": "overlay",
+        "primary_text_align": "text-center",
+        "primary_position": "center",
+        "overlay_style_height": "550",
+        "border_radius": "0",
+        "enable_box_shadow": false,
+        "overlay_style": "use_overlay",
+        "overlay_color": "",
+        "overlay_opacity": "0.5",
+        "rotation_degree": "180",
+        "primary_banner_bg": "",
+        "primary_heading_color": "",
+        "primary_sub_heading_color": "",
+        "primary_description_color": "",
+        "primary_button_bg_color": "",
+        "primary_button_text_color": "",
+        "primary_button_hover_bg_color": "",
+        "primary_button_hover_text_color": "",
+        "specification_block_style": "style2",
+        "block_icon_size": "60px",
+        "icon_border_radius": "0px",
+        "specification_style": "style2",
+        "block_icon_outer_size": "60px",
+        "additional_heading": "Additional Block Headng",
+        "additional_sub_heading": "Sub Heading",
+        "additional_description": "Use this text to share the information which you like!.",
+        "additional_heading_position": "text-start",
+        "block_icon_bg": "",
+        "block_icon_color": "",
+        "block_heading_color": "",
+        "block_description_color": "",
+        "block_button_bg_color": "",
+        "block_button_text_color": "",
+        "block_button_hover_bg_color": "",
+        "block_button_hover_text_color": "",
+        "additional_heading_color": "",
+        "additional_sub_heading_color": "",
+        "additional_description_color": "",
+        "custom_class_name": "greenie_about_specification"
+      }
+    },
+    "163947753124fd5ee5": {
+      "type": "home-grid-banner",
+      "blocks": {
+        "16394775318160aee4-0": {
+          "type": "content",
+          "settings": {
+            "block_image": "shopify:\/\/shop_images\/123_dffc102e-3277-47c8-bb58-fa11847141c4.jpg",
+            "show_image": true,
+            "block_title": "Shane Kim",
+            "block_sub_title": "Tea Sommelier",
+            "block_description": "During a transformative shift from my career as an IT Project Manager for a global company, I made a life-changing decision: to create KTea Shop with my wife, Nicole. Growing up in South Korea, I was profoundly influenced by the tradition of tea ceremonies, where sharing tea fosters deep, meaningful connections. As the owner and a devoted Tea Sommelier, I felt a calling to bring this beautiful tradition to life through our shop, inspiring others to experience the powerful bonds that can be forged over a simple cup of tea.",
+            "block_button_text": "Experience tea",
+            "block_button_link": "https:\/\/kteashop.com\/pages\/service-1",
+            "block_text_align": "text-start",
+            "content_position": "center-left",
+            "reverse_column": false,
+            "block_banner_bg": "rgba(0,0,0,0)",
+            "block_content_box_bg": "rgba(0,0,0,0)",
+            "block_heading_color": "",
+            "block_sub_heading_color": "",
+            "block_description_color": "",
+            "block_button_bg_color": "",
+            "block_button_text_color": "",
+            "block_button_hover_bg_color": "",
+            "block_button_hover_text_color": "",
+            "overlay_style": "use_overlay",
+            "overlay_color": "#44533c",
+            "overlay_opacity": "0.5",
+            "rotation_degree": "180"
+          }
+        },
+        "16394775318160aee4-1": {
+          "type": "content",
+          "settings": {
+            "block_image": "shopify:\/\/shop_images\/a.jpg",
+            "show_image": true,
+            "block_title": "Nicole Kim",
+            "block_sub_title": "Tea Confectionery",
+            "block_description": "Many people ask why Korea and how I developed my love for its culture, so here is my story. During my teenage years, I traveled to Canada to study English and met some incredible Korean friends who introduced me to their culture. This sparked a deeper connection, leading me to study at Busan National University and Seoul National University, where I fell in love with the magical world of Korean cafes and the warm, unforgettable moments shared with friends. After moving to Switzerland, my husband and I founded KTea Shop to share my passion for Korean culture and bring a piece of Korea into your lives, celebrating the extraordinary experiences that come from embracing and sharing diverse cultures.",
+            "block_button_text": "Experience pairing",
+            "block_button_link": "https:\/\/kteashop.com\/pages\/service-1",
+            "block_text_align": "text-end",
+            "content_position": "center-right",
+            "reverse_column": true,
+            "block_banner_bg": "rgba(0,0,0,0)",
+            "block_content_box_bg": "rgba(0,0,0,0)",
+            "block_heading_color": "",
+            "block_sub_heading_color": "",
+            "block_description_color": "",
+            "block_button_bg_color": "",
+            "block_button_text_color": "",
+            "block_button_hover_bg_color": "",
+            "block_button_hover_text_color": "",
+            "overlay_style": "use_overlay",
+            "overlay_color": "#44533c",
+            "overlay_opacity": "0.5",
+            "rotation_degree": "180"
+          }
+        }
+      },
+      "block_order": [
+        "16394775318160aee4-0",
+        "16394775318160aee4-1"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "100,100",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_image": "shopify:\/\/shop_images\/a.jpg",
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": true,
+        "background_color": "#e5e9e1",
+        "overlay_transparency": "0.5",
+        "section_heading": "",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "block_banner_style": "list",
+        "column_gap": "60",
+        "grid": "4",
+        "border_radius": "0",
+        "enable_box_shadow": false,
+        "equal_height": false,
+        "content_width": "50\/50",
+        "lap_content_width": "40\/60",
+        "overlay_style_height": 300,
+        "overlay_style_height_laptop": 300,
+        "overlay_style_height_mobile": 300,
+        "custom_class_name": "about-grid-page"
+      }
+    },
+    "1643367618ad8f3060": {
+      "type": "home-html-text",
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "100,200",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": true,
+        "background_color": "#44533c",
+        "overlay_transparency": "1",
+        "section_heading": "Join Us : Let's Get Connected Today",
+        "section_sub_heading": "",
+        "section_description": "We provide a unique environment, exceptional service, and a compelling story that resonates deeply with our customers. Our goal is to build a community that values and understands our mission.",
+        "section_button_text": "",
+        "section_button_link": "shopify:\/\/collections\/new-arrivals",
+        "section_heading_color": "#ffffff",
+        "section_sub_heading_color": "",
+        "section_description_color": "#e5e9e1",
+        "section_button_bg_color": "#ffffff",
+        "section_button_text_color": "#44533c",
+        "section_button_hover_bg_color": "#000000",
+        "section_button_hover_text_color": "#ffffff",
+        "heading_position": "text-center",
+        "html": "",
+        "custom_class_name": "green-about-html"
+      }
+    },
+    "1643428836fded0d7f": {
+      "type": "home-brand-logos",
+      "blocks": {
+        "1643428836e8cf3859-0": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "1643428836e8cf3859-1": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "1643428836e8cf3859-2": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "1643428836e8cf3859-4": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "1643428836e8cf3859-3": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "1643428836e8cf3859-0",
+        "1643428836e8cf3859-1",
+        "1643428836e8cf3859-2",
+        "1643428836e8cf3859-4",
+        "1643428836e8cf3859-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "130,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "",
+        "section_heading": "",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "grid": "5",
+        "block_style": "style-1",
+        "enable_box_shadow": false,
+        "column_gap": "30",
+        "border_radius": "0",
+        "block_border_color": "",
+        "block_background_color": "",
+        "enable_slider": true,
+        "enable_auto_height": false,
+        "items_per_view": 5,
+        "slider_autoplay": 1,
+        "dots": false,
+        "carousel_pagination_alignment": "center_pagination",
+        "arrows": false,
+        "nav_arrow_position": "navigation-bottom-center",
+        "center_nav_arrow_alignment": "outside_container",
+        "navigation_button_color": "",
+        "navigation_button_icon_color": "",
+        "navigation_button_hover_color": "",
+        "navigation_button_hover_icon_color": "",
+        "navigation_dot_color": "",
+        "navigation_dot_active_color": "",
+        "custom_class_name": ""
+      }
+    },
+    "home_support_block_pmByEr": {
+      "type": "home-support-block",
+      "blocks": {
+        "class_wRpzDG": {
+          "type": "class",
+          "settings": {
+            "class": "fa fa-home",
+            "title": "Switzerland",
+            "desc": "Vulkanstrasse 110c, 8048 Zürich",
+            "link_text": "View More",
+            "link": ""
+          }
+        },
+        "class_bGAQRk": {
+          "type": "class",
+          "settings": {
+            "class": "fa fa-home",
+            "title": "South Korea",
+            "desc": "65-16 Bugahyeon-ro, Seoul",
+            "link_text": "View More",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "class_wRpzDG",
+        "class_bGAQRk"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "Location",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "text_position": "text-start",
+        "block_style": "default-style",
+        "grid": "2",
+        "enable_grid_style": false,
+        "vertical_position": "position-default",
+        "reverse_column": false,
+        "border_radius": "0px",
+        "icon_border_radius": "0px",
+        "enable_box_shadow": false,
+        "block_icon_outer_size": "60px",
+        "block_icon_size": "40px",
+        "block_border_color": "",
+        "block_bg": "",
+        "block_icon_bg": "",
+        "block_icon_border_color": "",
+        "block_heading_color": "",
+        "block_description_color": "",
+        "block_button_bg_color": "",
+        "block_button_text_color": "",
+        "block_button_hover_bg_color": "",
+        "block_button_hover_text_color": "",
+        "custom_class_name": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1643365458286233b1",
+    "163947753124fd5ee5",
+    "1643367618ad8f3060",
+    "1643428836fded0d7f",
+    "home_support_block_pmByEr"
+  ]
+}

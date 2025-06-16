@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인터랙티브 파트너십 로드맵</title>
+    <!-- Chosen Palette: Warm Stone & Teal -->
+    <!-- Application Structure Plan: The application is designed as a dual-view dashboard. The default 'Timeline View' provides a high-level Gantt-style chart for a quick overview of the project phases and durations, appealing to executive summary needs. A secondary 'Task Board View' offers a granular look at each of the 15 steps, with filtering by phase and priority. A new 'Scope & Contract Focus' view has been significantly enhanced to incorporate a detailed business model and system analysis for KTeaShop (in Korean), providing a comprehensive overview of the venture's core strategies, operations, and value proposition. This structure was chosen because it allows users to switch between a macro (strategic), micro (operational), and specific (business/system analysis) perspective effortlessly, which is crucial for managing and understanding a complex project plan and ensuring all critical pre-contractual elements are thoroughly addressed. Navigation is handled by simple tabs, ensuring an intuitive user flow without overwhelming the user with all details at once. -->
+    <!-- Visualization & Content Choices:
+        - Timeline: Report Info (Phases 1-5, durations) -> Goal (Show change/duration) -> Viz (Horizontal Bar Chart/Gantt using Chart.js) -> Interaction (Clicking a phase bar highlights its details) -> Justification (Gantt is the industry standard for timelines and visually effective) -> Library (Chart.js on Canvas).
+        - Steps/Tasks: Report Info (15 steps with details, priority, outcome) -> Goal (Organize/Explore) -> Viz (Filterable grid of cards using HTML/Tailwind) -> Interaction (Buttons filter cards by Phase/Priority) -> Justification (Cards provide organized detail; filtering gives user control over information density) -> Method (HTML/CSS/JS).
+        - Key Stats: Report Info (Counts of phases, steps) -> Goal (Inform quickly) -> Viz (Styled stat cards) -> Interaction (None) -> Justification (Provides immediate, high-level context) -> Method (HTML/CSS).
+        - Scope & Contract Focus: Report Info (Detailed KTeaShop business model, system analysis, KPIs, and legal considerations in Korean) -> Goal (Provide a comprehensive, pre-contractual overview of the business, its operations, and key strategic elements) -> Viz (Structured text blocks with clear headings, paragraphs, and lists, using HTML/CSS for presentation and flow diagrams) -> Interaction (None, content display focused) -> Justification (Provides a deep dive into the business for key stakeholders, crucial for alignment before contract signing) -> Method (HTML/CSS).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button.active {
+            background-color: #0d9488;
+            color: white;
+        }
+        
+        .nav-button:not(.active):hover {
+            background-color: #f0fdfa;
+        }
+        
+        .task-card {
+            transition: all 0.3s ease-out;
+        }
+        
+        .flow-arrow {
+            display: inline-block;
+            margin: 0 8px;
+            font-weight: bold;
+            color: #3b82f6;
+        }
+        /* Blue arrow for flows */
+    </style>
+</head>
+
+<body class="text-stone-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 mb-2">📍 파트너십 & 라이선싱 로드맵</h1>
+            <p class="text-lg text-stone-600 max-w-3xl mx-auto">한국 티 소믈리에 연구원과 함께 스위스에 글로벌 티 기관을 설립하기 위한 인터랙티브 가이드입니다.</p>
+        </header>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 text-center">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-200">
+                <p class="text-3xl font-bold text-teal-600">5</p>
+                <p class="text-sm text-stone-500">단계</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-200">
+                <p class="text-3xl font-bold text-teal-600">15</p>
+                <p class="text-sm text-stone-500">총 스텝</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-200">
+                <p class="text-3xl font-bold text-teal-600">10+</p>
+                <p class="text-sm text-stone-500">주 소요</p>
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-stone-200">
+                <p class="text-3xl font-bold text-teal-600">1</p>
+                <p class="text-sm text-stone-500">최종 목표</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg border border-stone-200 p-4 sm:p-6">
+            <nav class="flex justify-center border-b border-stone-200 mb-6">
+                <button id="nav-timeline" class="nav-button active text-stone-700 font-semibold py-3 px-6 rounded-t-lg">타임라인 보기</button>
+                <button id="nav-tasks" class="nav-button text-stone-700 font-semibold py-3 px-6 rounded-t-lg">업무 보드</button>
+                <button id="nav-scope-objective" class="nav-button text-stone-700 font-semibold py-3 px-6 rounded-t-lg">범위 및 계약 초점</button>
+            </nav>
+
+            <div id="timeline-view">
+                <div class="text-center mb-6 px-4">
+                    <h2 class="text-2xl font-bold text-stone-800">프로젝트 단계 개요</h2>
+                    <p class="text-stone-600 mt-1">이 차트는 각 프로젝트 단계의 기간을 보여줍니다. 막대를 클릭하여 해당 단계의 목표 및 세부 사항을 확인하세요.</p>
+                </div>
+                <div class="chart-container mb-8">
+                    <canvas id="timeline-chart"></canvas>
+                </div>
+                <div id="phase-details-container" class="px-4 space-y-4"></div>
+            </div>
+
+            <div id="tasks-view" class="hidden">
+                <div class="text-center mb-6 px-4">
+                    <h2 class="text-2xl font-bold text-stone-800">상세 업무 보드</h2>
+                    <p class="text-stone-600 mt-1">파트너십에 관련된 모든 단계를 살펴보세요. 필터를 사용하여 단계별 또는 우선순위별로 초점을 좁힐 수 있습니다.</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-2 mb-6 px-4">
+                    <button class="filter-btn bg-teal-600 text-white py-1 px-3 rounded-full text-sm" data-filter="all">모두</button>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="phase-1">1단계</button>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="phase-2">2단계</button>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="phase-3">3단계</button>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="phase-4">4단계</button>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="phase-5">5단계</button>
+                    <span class="border-l mx-2"></span>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="priority-highest">🔥 최우선</button>
+                    <button class="filter-btn bg-stone-200 text-stone-700 py-1 px-3 rounded-full text-sm" data-filter="priority-high">높은 우선순위</button>
+                </div>
+                <div id="task-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4"></div>
+            </div>
+
+            <div id="scope-objective-view" class="hidden px-4 py-6">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-stone-800">KTeaShop 글로벌 티 인스티튜션</h2>
+                    <p class="text-stone-600 mt-1">비즈니스 모델 및 시스템 분석</p>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">1. 총괄 요약 (Executive Summary)</h3>
+                        <p class="text-stone-700 mb-4">KTeaShop은 차의 예술, 과학, 문화에 헌신된 온·오프라인 교육 경험을 종합적으로 제공하는 글로벌 티 교육 플랫폼입니다. 이 사업의 핵심은 한국 티 소믈리에 연구원(KTSI)과의 전략적 제휴로, 정통성과 높은 품질의 커리큘럼을 기반으로 합니다. 프로그램은 차 지식, 우려 기술, 감각 평가, 문화적 이해를 포함한 통합적 티 마스터리 과정으로 구성되어 있습니다.</p>
+                        <p class="text-stone-700 mb-4">비즈니스 모델은 다각화되어 있으며, 온라인 코스와 자격증 프로그램의 D2C 판매, 오프라인 워크숍 및 몰입형 체험 프로그램, 프리미엄 차 및 차도구의 큐레이션 판매를 포함합니다. 수익은 프로그램 등록비, 자격증 발급 비용, 이벤트 참가비로 발생하며, 유연한 결제 옵션을 제공합니다.</p>
+                        <p class="text-stone-700">운영 측면에서는 온라인 학습 플랫폼과 오프라인 체험 공간을 융합한 하이브리드 시스템을 사용합니다. 이는 입문부터 전문가 자격증까지 체계적인 학습 경로를 제공하며, 한국 티 소믈리에 연구원과 공동 개발한 콘텐츠로 구성됩니다. 또한, 글로벌 커뮤니티 플랫폼이 학습 여정을 더욱 풍요롭게 만듭니다.</p>
+                        <p class="text-stone-700 mt-4">KTeaShop의 가치 제안은 정통성 있는 고급 차 교육과 글로벌 인증을 제공하여, 차 애호가 및 전문가 지망생의 지식 향상, 감각적 정교함, 문화적 성찰, 직업적 성장에 기여하는 것입니다.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">2. 브랜드 개요 (Introduction to KTeaShop)</h3>
+                        <p class="text-stone-700 mb-4">KTeaShop은 한국 전통차의 정수를 전 세계에 전파하는 것을 사명으로 하는 글로벌 차 교육 플랫폼입니다. 주요 목표는 차의 역사, 재배, 가공, 추출, 감각 평가에 대한 깊이 있는 지식을 누구나 쉽게 접할 수 있도록 하는 것입니다.</p>
+                        <p class="text-stone-700 mb-4">KTeaShop은 전통에 깊이 뿌리를 두되, 글로벌 대중을 위한 접근성과 실용성을 고려하여 설계되었습니다. 프로그램은 입문자부터 전문가까지 아우르며, 복잡한 차의 세계를 친절하고 체계적으로 해석합니다.</p>
+                        <p class="text-stone-700">핵심 프로그램에는 '한국 차 예절 입문', '고급 감각 평가', '글로벌 티 소믈리에 자격과정'이 포함되며, 이들은 KTSI와 협업 또는 인증을 통해 제공됩니다. 이를 통해 수강생은 차의 세계를 탐구하고 그 정수를 마스터하며, 문화적 깊이와 연결성을 형성할 수 있습니다.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">3. 비즈니스 모델 분석 (Business Model Analysis)</h3>
+                        <p class="text-stone-700 font-semibold mb-2">핵심 수익원:</p>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700 mb-4">
+                            <li>온라인 코스 등록비</li>
+                            <li>자격증 발급 비용</li>
+                            <li>워크숍/이벤트 참가비</li>
+                            <li>(향후) 멤버십 구독</li>
+                            <li>(향후) 차 및 차도구 상품 판매</li>
+                        </ul>
+                        <p class="text-stone-700 font-semibold mb-2">고객군:</p>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700 mb-4">
+                            <li>차 애호가</li>
+                            <li>티 전문가 지망생</li>
+                            <li>F&B 전문가(쉐프, 바리스타 등)</li>
+                            <li>문화 탐험가</li>
+                            <li>웰빙 추구자</li>
+                        </ul>
+                        <p class="text-stone-700 font-semibold mb-2">학습 흐름 시각화:</p>
+                        <div class="flex flex-wrap items-center justify-center text-center text-stone-700 font-semibold text-sm">
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">대상 고객</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">교육 제공 (온라인 코스, 오프라인 체험)</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">수익 발생 (등록비, 상품 판매 등)</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">인증/성장/커뮤니티</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">4. 운영 시스템 및 플랫폼 (Operational System & Platform)</h3>
+                        <p class="text-stone-700 font-semibold mb-2">디지털 학습 플랫폼:</p>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700 mb-4">
+                            <li>강의 영상, PDF 자료, 퀴즈, 커뮤니티 포럼</li>
+                        </ul>
+                        <p class="text-stone-700 font-semibold mb-2">오프라인 구성:</p>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700 mb-4">
+                            <li>실습 워크숍 (우림, 감각 훈련, 예절)</li>
+                            <li>마스터클래스 (KTSI 초빙 강사)</li>
+                            <li>시음 이벤트 및 문화 체험 여행</li>
+                        </ul>
+                        <p class="text-stone-700 font-semibold mb-2">운영 흐름:</p>
+                        <div class="flex flex-wrap items-center justify-center text-center text-stone-700 font-semibold text-sm">
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">콘텐츠 개발 (KTeaShop + KTSI)</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">온라인 플랫폼 및 실습 활동</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">체계적 학습 경로</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="p-2 border border-stone-300 rounded-md bg-stone-50">인증 및 글로벌 네트워크 형성</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">5. 가치 제안 (Value Proposition)</h3>
+                        <p class="text-stone-700 mb-4">KTeaShop은 차에 대한 진정한 지식과 기술, 그리고 한국 전통 차 문화에 대한 깊은 이해를 통해 학습자의 삶을 풍요롭게 합니다.</p>
+                        <p class="text-stone-700 font-semibold mb-2">핵심 혜택:</p>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700">
+                            <li>차 종류/산지/제조 이해</li>
+                            <li>정밀한 우려 기술 습득</li>
+                            <li>감각 평가 능력 향상</li>
+                            <li>문화적 교양 및 명상 실천</li>
+                            <li>공식 인증을 통한 경력 강화</li>
+                            <li>글로벌 차 커뮤니티와 연결</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">6. 경쟁 우위 및 차별점 (USPs and Differentiators)</h3>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700">
+                            <li>**KTSI 독점 파트너십:** 세계적으로 인정받는 인증과 커리큘럼 제공</li>
+                            <li>**전문기관 포지셔닝:** 단순 코스 공급이 아닌 글로벌 교육 기관으로의 정체성</li>
+                            <li>**온오프 통합 학습 모델:** 이론과 실습의 이상적 결합</li>
+                            <li>**한국 차 전문성:** 차별화된 시장 리더십 확보</li>
+                            <li>**고품질 상품 접근성:** 향후 이커머스와 연계 가능</li>
+                            <li>**글로벌 커뮤니티:** 지속적인 네트워크와 성장 기회 제공</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">7. 전략적 인사이트 및 결론 (Conclusion and Strategic Insights)</h3>
+                        <p class="text-stone-700 mb-4">KTeaShop은 정통성과 접근성을 겸비한 글로벌 차 교육기관으로 성장할 수 있는 강력한 기반을 갖추고 있습니다.</p>
+                        <p class="text-stone-700 font-semibold mb-2">전략적 제언:</p>
+                        <ul class="space-y-1 list-disc list-inside text-stone-700 mb-4">
+                            <li>KTSI 파트너십을 마케팅, 브랜딩, 커리큘럼의 핵심 축으로 유지</li>
+                            <li>오프라인 확장은 단계적 허브 방식으로 전개 (팝업/협력 공간 등)</li>
+                            <li>커뮤니티 주도의 자발적 성장 시스템 구축</li>
+                            <li>프리미엄 차 상품과의 이커머스 연동 강화</li>
+                            <li>고급 과정 및 B2B(호텔, 레스토랑 등) 맞춤형 교육 확대</li>
+                        </ul>
+                        <p class="text-stone-700">KTeaShop은 진정성과 전문성을 바탕으로, 전 세계 차 교육 및 문화 확산의 중심이 될 준비가 되어 있습니다.</p>
+                        <p class="text-xs text-stone-500 mt-4">© 2025 KTeaShop 글로벌 티 인스티튜션. 모든 권리 보유.</p>
+                    </div>
+
+                    <div class="bg-teal-50 border-l-4 border-teal-600 text-teal-900 p-5 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold mb-2">파트너십 목표: KTeaShop & 한국 티 소믈리에 연구원</h3>
+                        <p class="text-lg">**KTeaShop (스위스 및 뉴욕)**은 **한국 티 소믈리에 연구원(한국)**의 라이선스 프리미엄 콘텐츠와 전문 지식을 활용하여 유럽과 미국에 글로벌 티 기관을 설립하는 것을 목표로 합니다. 이 파트너십은 진정한 차 교육의 전 세계적 확장을 위해 설계되었습니다.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">핵심 성과 지표 (KPIs) - 성공 정의</h3>
+                        <p class="text-stone-600 mb-4">명확하고 측정 가능한 KPI를 설정하는 것은 파트너십의 효과를 추적하고 예상되는 결과에 대한 양측의 이해를 일치시키는 데 가장 중요합니다. 이는 성과 검토의 기초가 될 것입니다.</p>
+                        <ul class="space-y-2 list-disc list-inside text-stone-700">
+                            <li>**수강생 등록 및 완료율 (글로벌):** 스위스와 뉴욕 전반의 코스 등록 및 성공적으로 코스를 완료한 수강생 수를 추적합니다.</li>
+                            <li>**수익 및 수익성 성장 (지역별):** 스위스 및 미국 시장에서 라이선스 코스의 재정적 성과를 모니터링합니다.</li>
+                            <li>**브랜드 인지도 및 인식 (유럽 및 미국):** 대상 지역에서 한국 티 소믈리에 연구원과 KTea Shop의 브랜드 존재감 성장을 측정합니다.</li>
+                            <li>**콘텐츠 현지화 효율성 및 품질:** 교육 자료 번역 및 현지화의 속도, 정확성, 문화적 관련성을 평가합니다.</li>
+                            <li>**강사 교육 및 인증 성공:** 신규 인증 강사의 성공률을 포함하여 티 소믈리에 교육의 일관된 높은 기준을 보장합니다.</li>
+                            <li>**수강생 만족도 (NPS/설문조사):** 코스 품질, 학습 성과 및 전반적인 경험에 대한 포괄적인 피드백을 수집하여 지속적인 개선을 보장합니다.</li>
+                            <li>**파트너십 협력 및 커뮤니케이션 효율성:** (정성적 KPI) 커뮤니케이션 채널 및 공동 이니셔티브 성공에 대한 정기적인 검토.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-stone-200">
+                        <h3 class="text-xl font-bold text-stone-800 mb-4">국경 간 파트너십을 위한 중요 법률 고려사항</h3>
+                        <p class="text-stone-600 mb-4">**스위스**, **뉴욕(미국)**, **한국**에 법인이 있으므로, 계약은 위험을 완화하고 관할권 전반에 걸쳐 집행 가능성을 보장하기 위해 국제 법률 세부 사항을 꼼꼼하게 다루어야 합니다.</p>
+                        <ul class="space-y-2 list-disc list-inside text-stone-700">
+                            <li>**준거법:** 계약의 해석 및 집행을 지배할 국가의 법률(예: 스위스, 뉴욕 또는 중립적인 제3 관할권)을 명확하게 정의합니다.</li>
+                            <li>**관할권 및 분쟁 해결:** 분쟁 해결을 위한 명확한 메커니즘을 설정하고, 선택된 법원 또는 중재 장소(예: 싱가포르 또는 런던과 같은 중립적인 국제 중재 기관)를 지정합니다.</li>
+                            <li>**지적 재산권:** 상표 및 저작권 보호를 포함하여 콘텐츠 소유권, 라이선스 조건, 사용 권한 및 침해 절차가 세 가지 관할권(스위스, 미국, 한국) 모두에서 어떻게 처리될지 정확하게 정의합니다.</li>
+                            <li>**세금:** 스위스, 미국, 한국에서 수익 분배, 라이선스 수수료 및 국경 간 거래에 대한 모든 세금 영향을 명확히 합니다. 국제 세무 자문을 구합니다.</li>
+                            <li>**규제 준수:** 모든 관련 국가에서 교육, 비즈니스 및 데이터 개인 정보 보호 규정(예: 해당 지역에서 EU 학생 데이터를 처리하는 경우 GDPR, CCPA 영향) 준수를 보장합니다.</li>
+                            <li>**데이터 개인 정보 보호 및 보안:** 스위스, 미국, 한국의 관련 데이터 보호 법률을 준수하여 학생 및 운영 데이터를 보호할 책임에 대해 명시적으로 설명합니다.</li>
+                            <li>**불가항력:** 예측할 수 없는 상황(예: 팬데믹, 자연재해)으로 인해 계약상 의무가 중단될 수 있는 조건을 정의하고 재시작 절차를 설명합니다.</li>
+                            <li>**계약 해지 조항:** 콘텐츠 사용, 데이터 및 재정적 합의와 관련된 계약 해지 후 의무를 포함하여 계약 해지를 위한 명확한 조건 및 상세 절차를 명시합니다.</li>
+                            <li>**진술 및 보증:** 법적 능력, 지적 재산권 및 법률 준수에 대한 상호 보증을 정의합니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roadmapData = {
+                phases: [{
+                    id: 1,
+                    name: "1단계: 기초",
+                    weeks: "1-2주",
+                    duration: [0, 2],
+                    goal: "신뢰 구축, 양측 보호, 의도 일치.",
+                    color: 'rgba(20, 184, 166, 0.7)'
+                }, {
+                    id: 2,
+                    name: "2단계: 구조 및 범위",
+                    weeks: "3-5주",
+                    duration: [2, 5],
+                    goal: "파트너십에 포함될 내용 정의.",
+                    color: 'rgba(13, 148, 136, 0.7)'
+                }, {
+                    id: 3,
+                    name: "3단계: 재무 및 운영",
+                    weeks: "6-7주",
+                    duration: [5, 7],
+                    goal: "자금 흐름 및 공동 브랜딩 정의.",
+                    color: 'rgba(15, 118, 110, 0.7)'
+                }, {
+                    id: 4,
+                    name: "4단계: 계약 확정",
+                    weeks: "8-9주",
+                    duration: [7, 9],
+                    goal: "모든 내용을 공식 계약으로 전환.",
+                    color: 'rgba(19, 78, 74, 0.7)'
+                }, {
+                    id: 5,
+                    name: "5단계: 실행 및 출시",
+                    weeks: "10주+",
+                    duration: [9, 11],
+                    goal: "과정 구축 및 마케팅 시작.",
+                    color: 'rgba(4, 47, 46, 0.7)'
+                }, ],
+                tasks: [{
+                    phase: 1,
+                    step: 1,
+                    name: "상호 비밀유지협약(NDA) 서명",
+                    priority: "highest",
+                    prioText: "🔥 최우선",
+                    outcome: "법적 보호",
+                    details: "자료 공유 전 양측 보호. 기밀 유지 및 비사용에 대한 간단한 2페이지 NDA."
+                }, {
+                    phase: 1,
+                    step: 2,
+                    name: "전략적 정렬 회의",
+                    priority: "high",
+                    prioText: "높은 우선순위",
+                    outcome: "공유된 비전",
+                    details: "공통 목표 명확화: 글로벌 차 교육, 역할(콘텐츠 제공자 vs 콘텐츠 운영자), 유럽에서의 영향력 비전."
+                }, {
+                    phase: 2,
+                    step: 3,
+                    name: "콘텐츠 인벤토리 목록",
+                    priority: "high",
+                    prioText: "높은 우선순위",
+                    outcome: "정의된 자산",
+                    details: "라이선스 대상 교육 자료 식별: 코스, 매뉴얼, 비디오, 슬라이드, 평가. 언어 지정(원본 = 한국어)."
+                }, {
+                    phase: 2,
+                    step: 4,
+                    name: "라이선스 범위 정의",
+                    priority: "high",
+                    prioText: "높은 우선순위",
+                    outcome: "명확한 사용 권한",
+                    details: "사용 권한(번역, 현지화, 배포), 지역(유럽/스위스), 기간(예: 5년)."
+                }, {
+                    phase: 2,
+                    step: 5,
+                    name: "소유권 조건 설정",
+                    priority: "high",
+                    prioText: "높은 우선순위",
+                    outcome: "IP 보호",
+                    details: "소유권자: 원본 콘텐츠(KTSI), 번역 또는 현지화 형식(KTea Shop?). 옵션: 공동 소유 또는 사용 라이선스."
+                }, {
+                    phase: 3,
+                    step: 6,
+                    name: "로열티 또는 라이선스 수수료 구조",
+                    priority: "medium",
+                    prioText: "중간 우선순위",
+                    outcome: "공정한 수익",
+                    details: "옵션 1: 정액 라이선스 수수료. 옵션 2: 코스 또는 학생당 수익 분배(%)."
+                }, {
+                    phase: 3,
+                    step: 7,
+                    name: "인증 및 자격 부여 계약",
+                    priority: "medium",
+                    prioText: "중간 우선순위",
+                    outcome: "브랜딩 명확성",
+                    details: "KTea가 인증서를 발급할 수 있습니까? 공동 브랜딩 또는 승인될 예정입니까?"
+                }, {
+                    phase: 3,
+                    step: 8,
+                    name: "마케팅 및 브랜딩 지침",
+                    priority: "medium",
+                    prioText: "중간 우선순위",
+                    outcome: "브랜드 정렬",
+                    details: "로고 사용, 이름 표시. 공동 프로모션 이벤트 또는 자료."
+                }, {
+                    phase: 4,
+                    step: 9,
+                    name: "전체 계약서 초안 작성",
+                    priority: "highest",
+                    prioText: "🔥 최우선",
+                    outcome: "법적 구조",
+                    details: "섹션: 라이선스 및 IP, 소유권 및 영토, 번역 권한, 수익 공유, 인증 및 브랜딩, 해지 및 갱신, 법적 관할권(CH/KR)."
+                }, {
+                    phase: 4,
+                    step: 10,
+                    name: "검토 및 법률 자문(양측)",
+                    priority: "high",
+                    prioText: "높은 우선순위",
+                    outcome: "위험 회피",
+                    details: "각 측의 법률 팀(또는 컨설턴트)이 피드백을 제공하도록 합니다."
+                }, {
+                    phase: 4,
+                    step: 11,
+                    name: "최종 서명",
+                    priority: "highest",
+                    prioText: "🔥 최종",
+                    outcome: "구속력 있는 계약",
+                    details: "실물 또는 디지털 사본 서명. 규정 준수를 위해 보관."
+                }, {
+                    phase: 5,
+                    step: 12,
+                    name: "번역 및 현지화 (1~2개 핵심 모듈부터 시작)",
+                    priority: "ongoing",
+                    prioText: "진행 중",
+                    outcome: "출시 시작",
+                    details: "1~2개 핵심 모듈부터 시작합니다."
+                }, {
+                    phase: 5,
+                    step: 13,
+                    name: "스위스에서 파일럿 클래스 (소프트 런칭)",
+                    priority: "ongoing",
+                    prioText: "진행 중",
+                    outcome: "소프트 런칭",
+                    details: "테스트 클래스를 운영하여 피드백을 수집합니다."
+                }, {
+                    phase: 5,
+                    step: 14,
+                    name: "인증 출시 및 마케팅 캠페인",
+                    priority: "ongoing",
+                    prioText: "진행 중",
+                    outcome: "공식 출시",
+                    details: "공식 마케팅 및 과정 제공을 시작합니다."
+                }, {
+                    phase: 5,
+                    step: 15,
+                    name: "분기별 검토 체크인",
+                    priority: "ongoing",
+                    prioText: "진행 중",
+                    outcome: "지속적인 성공",
+                    details: "진행 상황을 추적하고 전략을 조정하기 위한 정기적인 회의."
+                }, ]
+            };
+
+            const priorityStyles = {
+                highest: 'border-l-4 border-red-500',
+                high: 'border-l-4 border-amber-500',
+                medium: 'border-l-4 border-sky-500',
+                ongoing: 'border-l-4 border-emerald-500'
+            };
+
+            const navTimeline = document.getElementById('nav-timeline');
+            const navTasks = document.getElementById('nav-tasks');
+            const navScopeObjective = document.getElementById('nav-scope-objective');
+            const timelineView = document.getElementById('timeline-view');
+            const tasksView = document.getElementById('tasks-view');
+            const scopeObjectiveView = document.getElementById('scope-objective-view');
+            const taskCardsContainer = document.getElementById('task-cards-container');
+            const phaseDetailsContainer = document.getElementById('phase-details-container');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            function switchView(view) {
+                timelineView.classList.add('hidden');
+                tasksView.classList.add('hidden');
+                scopeObjectiveView.classList.add('hidden');
+
+                navTimeline.classList.remove('active');
+                navTasks.classList.remove('active');
+                navScopeObjective.classList.remove('active');
+
+                if (view === 'timeline') {
+                    timelineView.classList.remove('hidden');
+                    navTimeline.classList.add('active');
+                } else if (view === 'tasks') {
+                    tasksView.classList.remove('hidden');
+                    navTasks.classList.add('active');
+                } else if (view === 'scope-objective') {
+                    scopeObjectiveView.classList.remove('hidden');
+                    navScopeObjective.classList.add('active');
+                }
+            }
+
+            navTimeline.addEventListener('click', () => switchView('timeline'));
+            navTasks.addEventListener('click', () => filterTasks('all'));
+            navTasks.addEventListener('click', () => switchView('tasks'));
+            navScopeObjective.addEventListener('click', () => switchView('scope-objective'));
+
+            function populateDetailsAndCards() {
+                roadmapData.tasks.forEach(task => {
+                    const card = document.createElement('div');
+                    card.className = `task-card bg-white p-4 rounded-lg shadow-sm border ${priorityStyles[task.priority]}`;
+                    card.dataset.phase = `phase-${task.phase}`;
+                    card.dataset.priority = `priority-${task.priority}`;
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold uppercase text-stone-500">단계 ${task.step}</span>
+                            <span class="text-xs font-semibold text-white px-2 py-0.5 rounded-full ${task.priority === 'highest' ? 'bg-red-500' : task.priority === 'high' ? 'bg-amber-500' : 'bg-sky-500'}">${task.prioText}</span>
+                        </div>
+                        <h4 class="font-bold text-stone-800">${task.name}</h4>
+                        <p class="text-sm text-stone-600 mt-1 mb-2">${task.details}</p>
+                        <div class="text-xs text-teal-700 font-semibold bg-teal-50 p-2 rounded">성과: ${task.outcome}</div>
+                    `;
+                    taskCardsContainer.appendChild(card);
+                });
+
+                roadmapData.phases.forEach(phase => {
+                    const phaseSteps = roadmapData.tasks.filter(t => t.phase === phase.id).map(t => `<li>단계 ${t.step}: ${t.name}</li>`).join('');
+                    const detailEl = document.createElement('div');
+                    detailEl.id = `phase-detail-${phase.id}`;
+                    detailEl.className = 'p-4 border border-stone-200 rounded-lg bg-stone-50 transition-all duration-300 transform scale-95 opacity-50';
+                    detailEl.innerHTML = `
+                        <h3 class="font-bold text-lg text-stone-800">${phase.name} (${phase.weeks})</h3>
+                        <p class="italic text-stone-600 text-sm mb-2">목표: ${phase.goal}</p>
+                        <ul class="list-disc list-inside text-sm text-stone-700 space-y-1">${phaseSteps}</ul>
+                    `;
+                    phaseDetailsContainer.appendChild(detailEl);
+                });
+            }
+
+            function filterTasks(filter) {
+                const cards = document.querySelectorAll('.task-card');
+                cards.forEach(card => {
+                    const showByPhase = filter === 'all' || card.dataset.phase === filter;
+                    const showByPriority = filter === 'all' || card.dataset.priority === filter;
+                    if (showByPhase || showByPriority) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                filterBtns.forEach(btn => {
+                    btn.classList.remove('bg-teal-600', 'text-white');
+                    btn.classList.add('bg-stone-200', 'text-stone-700');
+                    if (btn.dataset.filter === filter) {
+                        btn.classList.add('bg-teal-600', 'text-white');
+                        btn.classList.remove('bg-stone-200', 'text-stone-700');
+                    }
+                });
+            }
+
+            filterBtns.forEach(btn => btn.addEventListener('click', () => filterTasks(btn.dataset.filter)));
+
+            const ctx = document.getElementById('timeline-chart').getContext('2d');
+            const timelineChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: roadmapData.phases.map(p => p.name),
+                    datasets: [{
+                        label: '단계 기간 (주)',
+                        data: roadmapData.phases.map(p => p.duration),
+                        backgroundColor: roadmapData.phases.map(p => p.color),
+                        borderColor: roadmapData.phases.map(p => p.color.replace('0.7', '1')),
+                        borderWidth: 1,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 12,
+                            title: {
+                                display: true,
+                                text: '주'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const phase = roadmapData.phases[context.dataIndex];
+                                    return `기간: ${phase.weeks}`;
+                                }
+                            }
+                        }
+                    },
+                    onClick: (event, elements) => {
+                        if (elements.length > 0) {
+                            const phaseIndex = elements[0].index;
+                            const phaseId = roadmapData.phases[phaseIndex].id;
+                            const detailEl = document.getElementById(`phase-detail-${phaseId}`);
+
+                            document.querySelectorAll('#phase-details-container > div').forEach(el => {
+                                el.classList.add('scale-95', 'opacity-50');
+                                el.classList.remove('scale-100', 'opacity-100', 'shadow-lg');
+                            });
+
+                            if (detailEl) {
+                                detailEl.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'center'
+                                });
+                                detailEl.classList.remove('scale-95', 'opacity-50');
+                                detailEl.classList.add('scale-100', 'opacity-100', 'shadow-lg');
+                            }
+                        }
+                    }
+                }
+            });
+
+            populateDetailsAndCards();
+            switchView('timeline');
+        });
+    </script>
+</body>
+
+</html>

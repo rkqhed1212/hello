@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog-template",
+      "blocks": {
+        "e647a523-a5ba-4008-bc31-a8f436883b14": {
+          "type": "articles",
+          "settings": {
+            "title": "Recent Articles",
+            "show_description": true,
+            "limit": 2
+          }
+        },
+        "f1e131c6-6525-4150-91f7-24c14561c6af": {
+          "type": "carousel",
+          "settings": {
+            "title": "Pretty Products",
+            "collection": "best-seller",
+            "limit": 5
+          }
+        }
+      },
+      "block_order": [
+        "e647a523-a5ba-4008-bc31-a8f436883b14",
+        "f1e131c6-6525-4150-91f7-24c14561c6af"
+      ],
+      "settings": {
+        "blog_results_per_page": 6,
+        "blog_show_author": false,
+        "blog_show_date": true,
+        "blog_comments": false,
+        "blog_show_tag": false,
+        "blog_show_button": false,
+        "blog_show_description": false,
+        "enable_blog_icons": false,
+        "block_banner_style": "grid-style",
+        "grid": "2",
+        "text_position": "text-center",
+        "column_gap": "30",
+        "enable_box_shadow": false,
+        "content_width": "50\/50",
+        "lap_content_width": "40\/60",
+        "vertical_position": "vertical-top",
+        "overlay_style_height": "400",
+        "overlay_style": "use_overlay",
+        "overlay_color": "#44533c",
+        "overlay_opacity": "0.5",
+        "rotation_degree": "180",
+        "split_blog_layout": false,
+        "split_gap": "30",
+        "custom_class_name": "greenie_blog"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

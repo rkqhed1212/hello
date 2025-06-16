@@ -1,0 +1,110 @@
+{
+  "sections": {
+    "home_product_tab_W6dnpA": {
+      "type": "home-product-tab",
+      "blocks": {
+        "tab_XHwxye": {
+          "type": "tab",
+          "settings": {
+            "tab": "green-tea",
+            "block_title": "Green Tea"
+          }
+        }
+      },
+      "block_order": [
+        "tab_XHwxye"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "Product Tab",
+        "section_sub_heading": "",
+        "section_description": "Use this text to share the information which you like!.",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "content_width": "30\/70",
+        "lap_content_width": "35\/65",
+        "grouped_content_bg": "",
+        "grouped_column_gap": "30",
+        "grouped_content_padding": "0",
+        "group_border_radius": "0",
+        "enable_group_box_shadow": false,
+        "reverse_column": false,
+        "enable_additional_content": true,
+        "additional_block_background_color": "",
+        "additional_block_box_shadow": false,
+        "additional_content_padding": "0",
+        "additional_block_border_radius": "0",
+        "enable_main_content": true,
+        "main_block_background_color": "",
+        "enable_main_block_box_shadow": false,
+        "main_block_border_radius": "0",
+        "main_content_padding": "0",
+        "enable_list_view": false,
+        "grid": "2",
+        "post_limit": 2,
+        "column_gap": "30",
+        "border_radius": "",
+        "tab_style": "style-2",
+        "tab_alignment": "text-center",
+        "tab_link_bg_color": "",
+        "tab_link_color": "",
+        "tab_link_bg_hover_color": "",
+        "tab_link_hover_text_color": "",
+        "tab_content_bg_color": "",
+        "tab_content_border_color": "",
+        "enable_slider": false,
+        "items_per_view": 4,
+        "rows": 3,
+        "enable_autoplay": true,
+        "slider_autoplay": 1,
+        "dots": false,
+        "carousel_pagination_alignment": "center_pagination",
+        "carousel_pagination_bottom_alignment": "outside_element",
+        "arrows": false,
+        "nav_arrow_position": "navigation-top-right",
+        "center_nav_arrow_alignment": "inside_container",
+        "navigation_button_color": "",
+        "navigation_button_icon_color": "",
+        "navigation_button_hover_color": "",
+        "navigation_button_hover_icon_color": "",
+        "navigation_dot_color": "",
+        "navigation_dot_active_color": "",
+        "custom_class_name": ""
+      }
+    },
+    "gp_global_section_520914367630279488_Jczdyr": {
+      "type": "gp-global-section-520914367630279488",
+      "settings": {
+        "section_preload": "off_lazy_script",
+        "gWwOvrBiVKcQU_text": "Product Description ",
+        "gLKdXEHWSOlbC_text": "Kurazumi's Matcha sets the standard for what Yame Matcha can be. Luscious, silky, and. wonderfully milky. When you whisk and drink a bowl of the Matcha as Usucha, you'll immediately think of frothed or steamed milk. The full body, with pleasant herbal tones and a gentle undertow of bitterness, balances the. tea. Also, Nori notes, persimmon-like sweetness, and an inviting green color. Shaded with.  traditional rice reeds and bamboo, and handpicked, the tea is deeply traditional in its cultivation,reflected in its smooth fragrance and savoriness. Ooika is thrilled to carry Kurazumi's Okumidori cultivar. A multi-generation true master of. tea production, and a three-time first-place winner of the highly esteemed National Tea Competition (), most recently in 2023 within the most distinguished category: Gyokuro The tea plants used to create this Matcha were grown in the field directly opposed to this. year's first-place tea in all of Japan for 2023. It can not be overstated how important this is.",
+        "gVLLrnfMIoVhW_childItem_0": "MORE DETAILS",
+        "gVLLrnfMIoVhW_childItem_1": "HOWTOBREW",
+        "gVLLrnfMIoVhW_childItem_2": "STORAGE",
+        "gaccordion-item-body-text-i2l0b766737c1_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "gaccordion-item-body-text-i2lfc6203044f_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      }
+    }
+  },
+  "order": [
+    "home_product_tab_W6dnpA",
+    "gp_global_section_520914367630279488_Jczdyr"
+  ]
+}

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tea Sommelier Program Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthy Neutrals -->
+    <!-- Application Structure Plan: A dashboard-centric single-page application. The core user flow is centered around interactive filtering. A top control panel allows users to filter programs by Focus, Delivery Mode, Price, and Duration. The main content area dynamically updates a comparative bar chart and a grid of detailed program cards based on these filters. This structure was chosen because the source report's primary value is in comparing diverse options; a dashboard empowers users to perform this comparison based on their specific needs, making the data more personal and useful than a static, linear report. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Program Costs & Durations -> Goal: Compare -> Viz/Method: Interactive Bar Chart (Chart.js) -> Interaction: Chart updates based on user filters -> Justification: Provides a quick, high-level visual comparison of key quantitative data points across filtered programs.
+        - Report Info: Detailed program descriptions (curriculum, format, etc.) -> Goal: Inform -> Presentation: Grid of Cards with Modal Pop-ups -> Interaction: Users click a 'Details' button on a card to view in-depth information in a modal. -> Justification: Keeps the main interface clean and scannable. Progressive disclosure prevents overwhelming the user, providing deep information on demand.
+        - Report Info: Program attributes (focus, delivery) -> Goal: Organize/Filter -> Presentation: Button groups and Sliders -> Interaction: User clicks/drags to select criteria -> Justification: Intuitive and direct way for users to control the data they see, forming the core of the interactive experience.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .filter-btn.active {
+            background-color: #8D6E63;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        .modal-bg {
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-box {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div id="app" class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#5D4037] mb-4">Find Your Perfect Tea Course</h1>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">This interactive tool helps you explore and compare global tea sommelier programs from the detailed report. Use the filters below to narrow down your options and find the certification that best fits your goals, budget, and learning style.</p>
+        </header>
+
+        <section id="filters" class="mb-12 p-6 bg-white rounded-xl shadow-md space-y-8">
+            <div>
+                <h3 class="font-semibold text-lg text-[#5D4037] mb-3">Primary Focus</h3>
+                <div id="focus-filters" class="flex flex-wrap gap-3">
+                    <button data-filter-group="focus" data-filter-value="All" class="filter-btn active bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">All</button>
+                    <button data-filter-group="focus" data-filter-value="Global" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">Global Coverage</button>
+                    <button data-filter-group="focus" data-filter-value="Hospitality" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">Hospitality Focus</button>
+                    <button data-filter-group="focus" data-filter-value="Japanese" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">Japanese Tea</button>
+                    <button data-filter-group="focus" data-filter-value="Immersive" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">Immersive Experience</button>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-lg text-[#5D4037] mb-3">Delivery Mode</h3>
+                <div id="mode-filters" class="flex flex-wrap gap-3">
+                    <button data-filter-group="mode" data-filter-value="All" class="filter-btn active bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">All</button>
+                    <button data-filter-group="mode" data-filter-value="Online" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">Online</button>
+                    <button data-filter-group="mode" data-filter-value="Hybrid" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">Hybrid</button>
+                    <button data-filter-group="mode" data-filter-value="In-Person" class="filter-btn bg-gray-200 text-gray-800 py-2 px-4 rounded-full text-sm font-medium">In-Person</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-semibold text-lg text-[#5D4037] mb-3">Max Price (USD)</h3>
+                    <input id="price-filter" type="range" min="0" max="4000" step="100" value="4000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <div class="text-right font-medium text-gray-700 mt-1">Up to $<span id="price-value">4000</span></div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg text-[#5D4037] mb-3">Max Duration (Months)</h3>
+                    <input id="duration-filter" type="range" min="0" max="15" step="1" value="15" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <div class="text-right font-medium text-gray-700 mt-1">Up to <span id="duration-value">15</span> months</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="space-y-12">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#5D4037] mb-4 text-center">Comparative Overview</h2>
+                <p id="chart-intro" class="max-w-3xl mx-auto text-center text-gray-600 mb-8">This chart visualizes the estimated cost and duration for the programs matching your criteria. Use it for a quick comparison of the investment required for each certification.</p>
+                <div class="chart-container bg-white p-4 rounded-xl shadow-md">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl md:text-3xl font-bold text-[#5D4037] mb-4 text-center">Filtered Programs (<span id="program-count">0</span>)</h2>
+                <p class="max-w-3xl mx-auto text-center text-gray-600 mb-8">Below are the detailed cards for each program that fits your selected filters. Click 'View Details' to explore the curriculum, unique features, and target audience for any program that catches your interest.</p>
+                <div id="program-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+                <div id="no-results" class="text-center py-16 hidden">
+                    <p class="text-xl text-gray-500">No programs match your current filters. Try adjusting your selections.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 modal-bg z-50 flex items-center justify-center p-4 hidden opacity-0">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-box transform scale-95 opacity-0">
+            <div class="p-6 sm:p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h2 id="modal-title" class="text-2xl font-bold text-[#5D4037]"></h2>
+                        <h3 id="modal-subtitle" class="text-lg font-medium text-gray-500"></h3>
+                    </div>
+                    <button id="modal-close" class="text-gray-400 hover:text-gray-600 transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div id="modal-content" class="prose max-w-none text-gray-700"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const programData = [{
+            id: 1,
+            institution: "International Tea Academy (ITA)",
+            certification: "ITA Certified Tea Sommelier",
+            price: 3500,
+            duration: 0.5,
+            focus: ["Immersive", "Global"],
+            mode: "In-Person",
+            summary: "An immersive, in-person training in Pu'er, China, the 'birthplace of tea'. Focuses on hands-on experience, from picking leaves to traditional ceremony.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>The program is distinguished by its experiential learning in China. Key topics include:</p>
+                    <ul>
+                        <li>Traditional Chinese and Japanese tea ceremonies, brewing, and tasting.</li>
+                        <li>Professional international standard tea evaluation and quality judgment.</li>
+                        <li>Tea blending and development of signature formulas.</li>
+                        <li>In-depth study of the global tea business, with visits to plantations and factories.</li>
+                        <li>Hands-on experience picking, roasting, and tasting tea from wild tea trees.</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>Its primary distinction is the deeply immersive cultural and educational experience in a historic Chinese tea region. Direct interaction with tea masters and local farmers provides unparalleled depth. A dual certification in Tea Business is often included. Best for those seeking a holistic, culturally rich, and experiential education.</p>`,
+            audience: `For all levels, from beginners to seasoned professionals, who desire a profound, hands-on cultural immersion.`
+        }, {
+            id: 2,
+            institution: "World Tea Academy (WTA)",
+            certification: "Certified Tea Sommelier™",
+            price: 2779,
+            duration: 12,
+            focus: ["Global"],
+            mode: "Online",
+            summary: "A comprehensive, self-paced online program known for its scientific and analytical approach, developed by industry experts. Requires a prerequisite.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>The fully online curriculum consists of 13 total courses (including prerequisites). It offers a rigorous, scientific underpinning with courses like:</p>
+                    <ul>
+                        <li>ADV.01: Advanced Cupping</li>
+                        <li>ADV.02: Understanding the Organoleptic Experience (taste science)</li>
+                        <li>ADV.07: Quality Assurance, Food Safety and Pesticides</li>
+                        <li>Comprehensive modules on teas from all major growing regions.</li>
+                        <li>Assignments are graded with direct feedback from instructors.</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>WTA's strength is its scientifically-grounded, expert-led curriculum delivered in a highly flexible online format. Its modular structure and bundled pricing make advanced tea education accessible to a global audience. Ideal for those who need flexibility and value a deep, technical understanding of tea.</p>`,
+            audience: `Ideal for tea room owners, foodservice professionals, and anyone needing a flexible, self-paced program with a strong academic focus.`
+        }, {
+            id: 3,
+            institution: "International Tea Masters Association (ITMA)",
+            certification: "ITMA Certified Tea Sommelier™",
+            price: 1725,
+            duration: 2,
+            focus: ["Global"],
+            mode: "Hybrid",
+            summary: "A hybrid program combining an intensive 2-day on-site (or Skype) course with a rigorous 8-week home tasting and study period.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>This program is delivered in two parts:</p>
+                    <ul>
+                        <li><strong>Part 1: 2-day Comprehensive Course (On-site/Skype):</strong> Accelerated learning of core skills, tasting protocols, and philosophy with real-life practice sessions.</li>
+                        <li><strong>Part 2: 8-week Tasting Course (Home Study):</strong> Students taste and evaluate 18 different teas from various categories, submitting findings online.</li>
+                        <li>The course culminates in a final exam, a dissertation, and the evaluation of a "Mystery Tea."</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>ITMA offers a distinctive blend of intensive training with structured and rigorous home study. The emphasis on comprehensive evaluations, including blind tastings and dissertations, sets a high standard for certification. The path to their prestigious 'Tea Master' title starts here.</p>`,
+            audience: `For restaurant/tea business owners, chefs, and serious aficionados aspiring to a career as a tea sommelier.`
+        }, {
+            id: 4,
+            institution: "ESTA / ITEI",
+            certification: "ITEI Certified Tea Sommelier",
+            price: 1800,
+            duration: 1,
+            focus: ["Hospitality"],
+            mode: "In-Person",
+            summary: "A classroom-based course in London with a strong vocational focus on the practical role of a tea sommelier in the European F&B industry.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>Designed for hospitality professionals, the curriculum focuses on practical application:</p>
+                    <ul>
+                        <li>Tea and food pairing, tea mixology, and afternoon tea service execution.</li>
+                        <li>Managing tea menus for profitability.</li>
+                        <li>Professional sensory evaluation and understanding of major tea types and cultures.</li>
+                        <li>Dynamics of the international tea trade and teas from all major regions.</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>The key differentiator is its strong, practical focus on applying tea knowledge within the European hospitality industry. Joint accreditation by the International Tea Education Institute and the European Speciality Tea Association enhances its regional credibility. Includes access to an alumni group and discounted association membership.</p>`,
+            audience: `Primarily aimed at hospitality professionals in restaurants, hotels, and barista venues.`
+        }, {
+            id: 5,
+            institution: "UK Tea Academy (UKTA)",
+            certification: "Level 2: Tea Sommelier",
+            price: 2400,
+            duration: 3,
+            focus: ["Global"],
+            mode: "Online",
+            summary: "Delivered via live online webinars, this program features an exceptionally large tea tasting component (100+ samples) and interactive classes.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>Requires a prerequisite 'Tea Champion' certificate. The Sommelier course is an in-depth exploration involving:</p>
+                    <ul>
+                        <li>Extensive tasting and assessment of over 100 high-grade teas, sent to students.</li>
+                        <li>Live, interactive online teaching in small classes with expert tutors (36 hours).</li>
+                        <li>Detailed studies of teas from major and emerging growing regions.</li>
+                        <li>Practical skills like writing menu descriptions and the principles of tea/food pairing.</li>
+                        <li>A one-to-one final exam via Zoom.</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>Characterized by its live, interactive online learning environment and an exceptionally extensive tasting component integrated into distance learning. While UK-based, its curriculum is global. The live format offers more direct engagement than self-paced courses.</p>`,
+            audience: `For professionals sourcing tea, overseeing high-end service, or anyone seeking a deep, comprehensive understanding of tea with interactive guidance.`
+        }, {
+            id: 6,
+            institution: "NPO Japan Tea Instructor Association",
+            certification: "Japanese Tea Instructor",
+            price: 700,
+            duration: 6,
+            focus: ["Japanese"],
+            mode: "Hybrid",
+            summary: "An official, in-depth certification focused exclusively on Japanese tea, run by a Japanese NPO. Involves a correspondence course and exams in Japan.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>This intermediate-level certification focuses on specialized knowledge of Japanese tea:</p>
+                    <ul>
+                        <li>Deep dive into Japanese tea types, origins, history, and health benefits.</li>
+                        <li>Covers the Japanese tea industry, cultivation, and production methods.</li>
+                        <li>Professional quality inspection and assessment protocols.</li>
+                        <li>Appropriate brewing methods and techniques for instructing others.</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>This is an official, in-depth certification focusing exclusively on Japanese tea, awarded by a recognized Japanese NPO. It provides a credible pathway to becoming a credentialed expert specifically in this field. The primary learning is remote, but exams are held in Japan.</p>`,
+            audience: `Recommended for individuals with a strong interest in Japanese tea, professionals in the industry, or those aspiring to open a Japanese tea business.`
+        }, {
+            id: 7,
+            institution: "Global Japanese Tea Association (GJTA)",
+            certification: "Japanese Tea Intermediate Course",
+            price: 460,
+            duration: 1,
+            focus: ["Japanese"],
+            mode: "Online",
+            summary: "A comprehensive program on Japanese tea developed for non-Japanese speakers, with certification from Kyoto. Delivered online or via in-person partners.",
+            curriculum: `
+                    <h4>Curriculum Highlights:</h4>
+                    <p>Builds upon a required Foundation Course, delving deeper into:</p>
+                    <ul>
+                        <li>The Japanese tea industry structure and specific tea regions.</li>
+                        <li>Variations in Japanese tea cultivars and production methods.</li>
+                        <li>Professional tasting and evaluation of lesser-known Japanese teas like Kabusecha and Tamaryokucha.</li>
+                        <li>A broad exploration of Japanese tea culture.</li>
+                    </ul>`,
+            usp: `
+                    <h4>Unique Selling Proposition:</h4>
+                    <p>GJTA provides an accessible program on Japanese tea specifically designed for non-Japanese speakers, with certification originating from Kyoto. Its partnership model allows for classes in various international locations, alongside a flexible online format. It's a great entry point into specialized Japanese tea knowledge.</p>`,
+            audience: `Designed for individuals seeking to deepen their knowledge of Japanese tea for personal enrichment or professional development.`
+        }, ];
+
+        const state = {
+            focus: 'All',
+            mode: 'All',
+            price: 4000,
+            duration: 15,
+        };
+
+        let comparisonChart = null;
+
+        const renderChart = (data) => {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+
+            if (comparisonChart) {
+                comparisonChart.destroy();
+            }
+
+            const chartData = {
+                labels: data.map(p => p.institution),
+                datasets: [{
+                    label: 'Cost (USD)',
+                    data: data.map(p => p.price),
+                    backgroundColor: 'rgba(141, 110, 99, 0.6)',
+                    borderColor: 'rgba(141, 110, 99, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'yCost',
+                }, {
+                    label: 'Duration (Months)',
+                    data: data.map(p => p.duration),
+                    backgroundColor: 'rgba(161, 136, 127, 0.6)',
+                    borderColor: 'rgba(161, 136, 127, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'yDuration',
+                }]
+            };
+
+            comparisonChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        yCost: {
+                            type: 'linear',
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Cost (USD)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        },
+                        yDuration: {
+                            type: 'linear',
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Duration (Months)'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 16) {
+                                        return label.substring(0, 16) + '...';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return context[0].chart.data.labels[context[0].dataIndex];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        const renderCards = (data) => {
+            const container = document.getElementById('program-cards');
+            const countEl = document.getElementById('program-count');
+            const noResultsEl = document.getElementById('no-results');
+
+            container.innerHTML = '';
+            countEl.textContent = data.length;
+
+            if (data.length === 0) {
+                noResultsEl.classList.remove('hidden');
+            } else {
+                noResultsEl.classList.add('hidden');
+            }
+
+            data.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-1 transition-transform duration-300';
+                card.innerHTML = `
+                    <div class="p-6 flex-grow">
+                        <div class="tracking-wide text-sm text-[#8D6E63] font-semibold">${p.institution}</div>
+                        <h3 class="block mt-1 text-lg leading-tight font-bold text-[#5D4037]">${p.certification}</h3>
+                        <p class="mt-2 text-gray-500 text-sm flex-grow">${p.summary}</p>
+                    </div>
+                    <div class="p-6 bg-gray-50">
+                        <div class="flex justify-between items-center text-sm font-medium text-gray-700 mb-4">
+                            <span>~ $${p.price.toLocaleString()}</span>
+                            <span>~ ${p.duration} month(s)</span>
+                            <span>${p.mode}</span>
+                        </div>
+                        <button data-program-id="${p.id}" class="details-btn w-full bg-[#8D6E63] hover:bg-[#A1887F] text-white font-bold py-2 px-4 rounded-lg transition-colors">View Details</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        };
+
+        const applyFilters = () => {
+            const filteredData = programData.filter(p => {
+                const focusMatch = state.focus === 'All' || p.focus.includes(state.focus);
+                const modeMatch = state.mode === 'All' || p.mode === state.mode;
+                const priceMatch = p.price <= state.price;
+                const durationMatch = p.duration <= state.duration;
+                return focusMatch && modeMatch && priceMatch && durationMatch;
+            });
+
+            renderChart(filteredData);
+            renderCards(filteredData);
+        };
+
+        document.getElementById('filters').addEventListener('click', (e) => {
+            if (e.target.matches('.filter-btn')) {
+                const group = e.target.dataset.filterGroup;
+                const value = e.target.dataset.filterValue;
+
+                state[group] = value;
+
+                document.querySelectorAll(`button[data-filter-group="${group}"]`).forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                e.target.classList.add('active');
+
+                applyFilters();
+            }
+        });
+
+        document.getElementById('price-filter').addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            state.price = value;
+            document.getElementById('price-value').textContent = value.toLocaleString();
+        });
+
+        document.getElementById('price-filter').addEventListener('change', applyFilters);
+
+        document.getElementById('duration-filter').addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            state.duration = value;
+            document.getElementById('duration-value').textContent = value;
+        });
+
+        document.getElementById('duration-filter').addEventListener('change', applyFilters);
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubtitle = document.getElementById('modal-subtitle');
+        const modalContent = document.getElementById('modal-content');
+        const modalCloseBtn = document.getElementById('modal-close');
+
+        const openModal = (program) => {
+            modalTitle.textContent = program.certification;
+            modalSubtitle.textContent = program.institution;
+            modalContent.innerHTML = `
+                ${program.curriculum}
+                ${program.usp}
+                <h4>Target Audience:</h4>
+                <p>${program.audience}</p>
+            `;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('.modal-box').classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        };
+
+        const closeModal = () => {
+            modal.querySelector('.modal-box').classList.add('scale-95', 'opacity-0');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        };
+
+        document.getElementById('program-cards').addEventListener('click', (e) => {
+            if (e.target.matches('.details-btn')) {
+                const programId = parseInt(e.target.dataset.programId);
+                const program = programData.find(p => p.id === programId);
+                openModal(program);
+            }
+        });
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape" && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', applyFilters);
+    </script>
+</body>
+
+</html>

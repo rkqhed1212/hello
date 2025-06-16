@@ -1,0 +1,171 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "home_linkedlist_menu_DJtBXb": {
+      "type": "home-linkedlist-menu",
+      "blocks": {
+        "categorylisting_VVTEg7": {
+          "type": "categorylisting",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_1702_2.heic",
+            "sub_title": "Tea tisana",
+            "linked_list_description": "Health Convention",
+            "linkedlist": "",
+            "block_button_text": "",
+            "block_button_link": "",
+            "reverse_column": false
+          }
+        },
+        "categorylisting_GH9PRm": {
+          "type": "categorylisting",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_2145.heic",
+            "sub_title": "Korean & Japanese & Event",
+            "linked_list_description": "TI NERD BELLINZONA",
+            "linkedlist": "",
+            "block_button_text": "",
+            "block_button_link": "",
+            "reverse_column": false
+          }
+        },
+        "categorylisting_VjhXU3": {
+          "type": "categorylisting",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_2102.heic",
+            "sub_title": "Gym & Collaboration",
+            "linked_list_description": "Klub der Sportfreunde",
+            "linkedlist": "",
+            "block_button_text": "",
+            "block_button_link": "",
+            "reverse_column": false
+          }
+        },
+        "categorylisting_3LG9Ej": {
+          "type": "categorylisting",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Special_event_korean_tea_a_desserts_serving.zip_-_1.png",
+            "sub_title": "Korean Restaurants & Collaboration",
+            "linked_list_description": "Galdae Restaurant",
+            "linkedlist": "",
+            "block_button_text": "",
+            "block_button_link": "",
+            "reverse_column": false
+          }
+        }
+      },
+      "block_order": [
+        "categorylisting_VVTEg7",
+        "categorylisting_GH9PRm",
+        "categorylisting_VjhXU3",
+        "categorylisting_3LG9Ej"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "Collaboration & Events",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "grid": "3",
+        "enable_boxed": false,
+        "enable_box_shadow": false,
+        "linked_style": "overall-stye-1",
+        "linked_list_style": "list-stye-2",
+        "enable_list_separator": false,
+        "column_gap": "30px",
+        "overall_border_radius": "0",
+        "border_radius": "0",
+        "text_align": "text-center",
+        "overlay_padding": 20,
+        "overlay_padding_mobile": 15,
+        "image_height": 400,
+        "image_height_lap": 400,
+        "image_height_tab": 400,
+        "image_height_mobile": 400,
+        "item_background_color": "",
+        "item_heading_color": "",
+        "item_heading_hover_color": "",
+        "item_description_color": "",
+        "item_link_color": "",
+        "item_link_hover_color": "",
+        "separator_color": "",
+        "item_button_bg_color": "",
+        "item_button_text_color": "",
+        "item_button_hover_bg_color": "",
+        "item_button_hover_text_color": "",
+        "item_overlay_color": "",
+        "item_overlay_transparency": "0.9",
+        "custom_class_name": ""
+      }
+    },
+    "home_newsletter_cNrtjg": {
+      "type": "home-newsletter",
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "background_color": "",
+        "enable_overlay": false,
+        "overlay_transparency": "0.5",
+        "section_heading": "Contact for collaboration",
+        "section_sub_heading": "",
+        "section_description": "info@kteashop.com",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "section_position": "text-center",
+        "newsletter_form_width": "65%",
+        "newsletter_description": "",
+        "news_style": "style-5",
+        "reverse_column": false,
+        "space_in_between": "10px",
+        "newsletter_box_border_color": "",
+        "newsletter_box_bg_color": "",
+        "newsletter_box_border_focus_color": "",
+        "newsletter_button_bg_color": "",
+        "newsletter_button_text_color": "",
+        "newsletter_button_hover_bg_color": "",
+        "newsletter_button_hover_text_color": "",
+        "newsletter_description_color": "",
+        "custom_class_name": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "home_linkedlist_menu_DJtBXb",
+    "home_newsletter_cNrtjg"
+  ]
+}

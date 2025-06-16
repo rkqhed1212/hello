@@ -1,0 +1,137 @@
+{
+  "sections": {
+    "home_faq_block_nc6aYn": {
+      "type": "home-faq-block",
+      "blocks": {
+        "icon_Admr7g": {
+          "type": "icon",
+          "source": "{{ metaobject }}",
+          "settings": {
+            "icon": "{{ metaobject.image.value }}",
+            "title": "{{ metaobject.water | metafield_text }}",
+            "desc": "{{ metaobject.weight | metafield_text }}"
+          }
+        },
+        "class_TtxjTX": {
+          "type": "class",
+          "settings": {
+            "class": "fa fa-home",
+            "title": "Heading",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "icon_BDCCjY": {
+          "type": "icon",
+          "source": "{{ metaobject }}",
+          "settings": {
+            "icon": "{{ metaobject.image.value }}",
+            "title": "{{ metaobject.water | metafield_text }}",
+            "desc": "{{ metaobject.weight | metafield_text }}"
+          }
+        },
+        "class_7LL4QQ": {
+          "type": "class",
+          "settings": {
+            "class": "fa fa-home",
+            "title": "Heading",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "icon_iFNYFE": {
+          "type": "icon",
+          "settings": {
+            "title": "Heading",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        }
+      },
+      "block_order": [
+        "icon_Admr7g",
+        "class_TtxjTX",
+        "icon_BDCCjY",
+        "class_7LL4QQ",
+        "icon_iFNYFE"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "#f5f5f5",
+        "overlay_transparency": "0.5",
+        "section_heading": "FAQ Block{{ metaobject.water | metafield_text }}",
+        "section_sub_heading": "tastsd{{ metaobject.tea_aroma.value.name.value }}",
+        "section_description": "Use this text to share the information which you like!.",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "block_style": "default-style",
+        "text_position": "text-start",
+        "border_radius": "0",
+        "enable_box_shadow": false,
+        "enable_heading_icons": false,
+        "faq_icon_size": "30",
+        "enable_segmented_layout": false,
+        "segmented_layout_gap": "15",
+        "faq_heading_color": "",
+        "faq_heading_bg_color": "",
+        "faq_content_color": "",
+        "faq_content_bg_color": "",
+        "custom_class_name": ""
+      }
+    },
+    "inner_page_image_with_icon_section_type_2_46Lz7g": {
+      "type": "inner-page-image-with-icon-section-type-2",
+      "settings": {
+        "enable": true,
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "background_image": "{{ metaobject.image.value }}",
+        "show_background_image": true,
+        "background_style": "default",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "Image with icon section type 2",
+        "section_sub_heading": "Sub Heading",
+        "section_description": "Use this text to share the information which you like!.",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "main_title": "Heading",
+        "sub_title": "Sed vestibulum nulla elementum auctor tincidunt. Aliquam sit amet cursus mauris. Sed vitae mattis ipsum.",
+        "block_heading_color": "",
+        "block_description_color": "",
+        "block_icon_bg_color": "",
+        "block_icon_color": "",
+        "block_icon_bg_hover_color": "",
+        "block_icon_hover_color": "",
+        "custom_class_name": ""
+      }
+    }
+  },
+  "order": [
+    "home_faq_block_nc6aYn",
+    "inner_page_image_with_icon_section_type_2_46Lz7g"
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "home_faq_block_q7ewif": {
+      "type": "home-faq-block",
+      "blocks": {
+        "icon_gBzpPY": {
+          "type": "icon",
+          "settings": {
+            "title": "Heading{{ page.title }}",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "class_NttUWp": {
+          "type": "class",
+          "disabled": true,
+          "settings": {
+            "class": "fa fa-home",
+            "title": "Heading",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "class_A9Pe4q": {
+          "type": "class",
+          "disabled": true,
+          "settings": {
+            "class": "fa fa-home",
+            "title": "{{ page.title }}",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        },
+        "icon_Ld9eG4": {
+          "type": "icon",
+          "disabled": true,
+          "settings": {
+            "title": "Heading",
+            "desc": "Lorem ipsum dolor sit amet"
+          }
+        }
+      },
+      "block_order": [
+        "icon_gBzpPY",
+        "class_NttUWp",
+        "class_A9Pe4q",
+        "icon_Ld9eG4"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "#f5f5f5",
+        "overlay_transparency": "0.5",
+        "section_heading": "FAQ Block",
+        "section_sub_heading": "{{ page.title }}",
+        "section_description": "{{ page.metafields.additional.water_size | metafield_text }}",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "block_style": "default-style",
+        "text_position": "text-start",
+        "border_radius": "0",
+        "enable_box_shadow": false,
+        "enable_heading_icons": false,
+        "faq_icon_size": "30",
+        "enable_segmented_layout": false,
+        "segmented_layout_gap": "15",
+        "faq_heading_color": "",
+        "faq_heading_bg_color": "",
+        "faq_content_color": "",
+        "faq_content_bg_color": "",
+        "custom_class_name": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "home_faq_block_q7ewif"
+  ]
+}

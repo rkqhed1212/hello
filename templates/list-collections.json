@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collection",
+      "settings": {
+        "use_custom_list_collection": false,
+        "list-collections": "",
+        "collection_btn_text": "Shop Now",
+        "show_item_count": false,
+        "show_excerpt": false,
+        "grid": "4"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

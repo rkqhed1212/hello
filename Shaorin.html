@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Philosophy of Focus: An Interactive Guide to Master Shi Heng Yi's Teachings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Zen Earth -->
+    <!-- Application Structure Plan: The SPA is structured as a narrative journey. It starts with the Persona of the master, establishes the modern Problem he diagnoses, then dives deep into his multi-part Solution. This is followed by an analysis of his persuasive Style. The user flows from understanding the 'what' to the 'how' and finally the 'why' it's so effective. This thematic, progressive disclosure is more intuitive than a flat report, encouraging exploration through interactive cards, tabs, and visualizations. -->
+    <!-- Visualization & Content Choices: 
+        - Persona: Goal: Inform -> Method: Hero section with strong visual cues (color, typography) and key quote. -> Justification: Establishes authority and sets the tone.
+        - Problem (Modern Malaise): Goal: Inform/Relate -> Method: Three interactive cards with hover effects. -> Justification: Breaks down the complex problem into relatable, digestible pieces.
+        - Solution (Architecture): Goal: Organize/Interact -> Method: A master tabbed interface for the 4 core solution parts.
+            - Five Hindrances: Goal: Organize/Inform -> Method: Interactive list where clicking a hindrance reveals its definition. -> Justification: Turns a static list into a self-diagnostic tool.
+            - RAIN Method: Goal: Organize/Instruct -> Method: A 4-step interactive diagram. Clicking a letter reveals details. -> Justification: "Productizes" the concept, making it easy to learn and remember.
+            - Mind & Body: Goal: Compare/Change -> Method: A simple bar chart (Chart.js) updated via a button, symbolizing growth through discipline. -> Justification: Visually demonstrates the principle of balanced training.
+            - Path to Purpose: Goal: Inform/Compare -> Method: Side-by-side cards for "Introspection" and "Non-Attachment". -> Justification: Highlights the dual nature of the solution.
+        - The Brick Metaphor: Goal: Inform/Engage -> Method: A clickable HTML/CSS brick that "cracks". -> Justification: A memorable, "wow" factor interaction that embodies the core message.
+        - Persuasion Style: Goal: Analyze/Inform -> Method: Icon-driven cards explaining his communication techniques. -> Justification: Provides a meta-analysis of why the message is so compelling.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #F5F5F4;
+            /* stone-100 */
+            color: #292524;
+            /* stone-800 */
+        }
+        
+        .active-tab {
+            background-color: #854d0e;
+            /* amber-800 */
+            color: #ffffff;
+        }
+        
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .hindrance-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .hindrance-item.active {
+            background-color: #FEF3C7;
+            /* amber-100 */
+            border-left-color: #D97706;
+            /* amber-600 */
+        }
+        
+        .rain-step {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .rain-step.active .rain-letter {
+            background-color: #D97706;
+            /* amber-600 */
+            color: white;
+        }
+        
+        .rain-step.active .rain-text {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 0.5rem;
+        }
+        
+        .rain-text {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+        }
+        
+        .brick {
+            width: 200px;
+            height: 90px;
+            background: #b91c1c;
+            /* red-700 */
+            border: 2px solid #7f1d1d;
+            /* red-900 */
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .brick:before,
+        .brick:after {
+            content: '';
+            position: absolute;
+            background: #991b1b;
+            /* red-800 */
+            z-index: 1;
+        }
+        
+        .brick:before {
+            width: 100%;
+            height: 4px;
+            top: 45%;
+        }
+        
+        .brick:after {
+            width: 4px;
+            height: 100%;
+            left: 49%;
+        }
+        
+        .crack {
+            position: absolute;
+            top: -5%;
+            left: 48%;
+            width: 5px;
+            height: 0;
+            background: #F5F5F4;
+            box-shadow: 0 0 7px #000;
+            z-index: 2;
+            transition: height 0.3s ease-out;
+        }
+        
+        .brick.cracked .crack {
+            height: 110%;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            height: 250px;
+            max-height: 300px;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Main Container -->
+    <div class="container mx-auto max-w-5xl px-4 py-8 md:py-16">
+
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-stone-900 leading-tight">The Philosophy of Focus</h1>
+            <p class="text-lg text-stone-600 mt-2">An Interactive Guide to the Teachings of Master Shi Heng Yi</p>
+        </header>
+
+        <!-- Section 1: The Problem -->
+        <section id="problem" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-2 text-stone-900">The Diagnosis of Modern Life</h2>
+            <p class="text-center text-stone-600 mb-8 max-w-3xl mx-auto">Master Shi Heng Yi identifies our collective struggles not as personal failures, but as a "hidden epidemic"— a shared condition of modern society. He diagnoses three core symptoms.</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-xl mb-2 text-amber-700">1. Overload of Choice</h3>
+                    <p>An endless stream of options leads to indecision, paralysis, and a constant state of anxiety, pulling us away from commitment and depth.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-xl mb-2 text-amber-700">2. Mind-Body Disconnection</h3>
+                    <p>Modern life is excessively intellectual and sedentary. This creates a fundamental imbalance, leaving us feeling ungrounded and disconnected from our physical selves.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-xl mb-2 text-amber-700">3. Distraction from Purpose</h3>
+                    <p>Societal pressures and a constant chase for fleeting sensory desires distract us from the deep introspection required to discover our true purpose.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Solution -->
+        <section id="solution" class="mb-16 bg-white p-6 sm:p-8 md:p-12 rounded-2xl shadow-lg border border-stone-200">
+            <h2 class="text-3xl font-bold text-center mb-8 text-stone-900">The Architecture of Self-Mastery</h2>
+            <div id="solution-tabs" class="flex flex-wrap justify-center gap-2 mb-8">
+                <button data-tab="hindrances" class="tab-btn px-4 py-2 rounded-full font-semibold">1. Name the Obstacles</button>
+                <button data-tab="rain" class="tab-btn px-4 py-2 rounded-full font-semibold">2. Apply the Method</button>
+                <button data-tab="body" class="tab-btn px-4 py-2 rounded-full font-semibold">3. Train the Body</button>
+                <button data-tab="purpose" class="tab-btn px-4 py-2 rounded-full font-semibold">4. Find Your Path</button>
+            </div>
+            <div id="solution-content" class="min-h-[400px]">
+                <!-- Content will be injected by JS -->
+            </div>
+        </section>
+
+        <!-- Section 3: The Art of Persuasion -->
+        <section id="persuasion">
+            <h2 class="text-3xl font-bold text-center mb-2 text-stone-900">The Messenger & The Message</h2>
+            <p class="text-center text-stone-600 mb-8 max-w-3xl mx-auto">The power of the teachings comes not just from the content, but from the master's unique communication style, which embodies the very peace it promises.</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                    <h3 class="font-bold text-xl mb-2 text-amber-700">The "Copywriting of Calm"</h3>
+                    <p>His delivery is deliberate, measured, and tranquil. In a world of high-energy media, his calm itself becomes a form of proof for his philosophy.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                    <h3 class="font-bold text-xl mb-2 text-amber-700">Metaphor & Vulnerability</h3>
+                    <p>He pairs powerful metaphors (breaking the brick) with deep personal vulnerability (his father's passing) to be both an aspirational master and a relatable human.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+                    <h3 class="font-bold text-xl mb-2 text-amber-700">Ancient Wisdom, Modern Value</h3>
+                    <p>The philosophy is framed as time-tested "ancient wisdom," giving it a sense of authenticity and premium value that modern trends lack.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-16 text-stone-500">
+            <p>This interactive guide is based on the analysis of Master Shi Heng Yi's public teachings.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const solutionTabs = document.getElementById('solution-tabs');
+            const solutionContent = document.getElementById('solution-content');
+            let currentChart = null;
+
+            const contentData = {
+                hindrances: `
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/3">
+                    <h3 class="font-bold text-xl text-stone-800 mb-2">The Five Hindrances</h3>
+                    <p class="text-stone-600 text-sm">To achieve focus, first you must name the internal enemies that derail you. Click on a hindrance to understand it.</p>
+                    <ul id="hindrance-list" class="mt-4 space-y-1">
+                        <li class="hindrance-item p-3 border-l-4 border-stone-200 active" data-content="The constant pull towards pleasurable sights, sounds, tastes, and feelings. It creates a restless seeking for the next fleeting stimulus.">1. Sensory Desires</li>
+                        <li class="hindrance-item p-3 border-l-4 border-stone-200" data-content="Feelings of aversion, anger, hostility, or dislike towards others, situations, or even yourself.">2. Ill Will</li>
+                        <li class="hindrance-item p-3 border-l-4 border-stone-200" data-content="A state of mental and physical heaviness, lethargy, or lack of motivation. The mind feels foggy and uninspired.">3. Dullness & Drowsiness</li>
+                        <li class="hindrance-item p-3 border-l-4 border-stone-200" data-content="The 'monkey mind'—an inability to quiet mental chatter, worrying, and an agitated state of being unable to settle.">4. Restlessness</li>
+                        <li class="hindrance-item p-3 border-l-4 border-stone-200" data-content="A lack of confidence in your own abilities or in the path itself. It manifests as indecisiveness and corrosive self-criticism.">5. Self-Doubt</li>
+                    </ul>
+                </div>
+                <div class="md:w-2/3 bg-amber-50 rounded-lg p-6 flex items-center">
+                    <div id="hindrance-content" class="text-center">
+                        <p class="text-lg text-amber-900">The constant pull towards pleasurable sights, sounds, tastes, and feelings. It creates a restless seeking for the next fleeting stimulus.</p>
+                    </div>
+                </div>
+            </div>
+        `,
+                rain: `
+            <div class="text-center max-w-lg mx-auto">
+                <h3 class="font-bold text-xl text-stone-800 mb-2">The R.A.I.N. Method</h3>
+                <p class="text-stone-600 mb-6">A four-step tool for mindfully processing difficult emotions. Click each step to expand.</p>
+                <div id="rain-container" class="space-y-2 text-left">
+                    <div class="rain-step bg-stone-100 p-4 rounded-lg">
+                        <div class="flex items-center justify-between font-bold cursor-pointer">
+                            <div class="flex items-center"><span class="rain-letter flex items-center justify-center w-8 h-8 rounded-full bg-stone-300 mr-4">R</span> Recognize</div>
+                        </div>
+                        <div class="rain-text text-stone-600 pl-12">Simply notice what is happening in your mind and body. "Ah, this is anxiety," or "I am feeling anger." You are the observer.</div>
+                    </div>
+                    <div class="rain-step bg-stone-100 p-4 rounded-lg">
+                        <div class="flex items-center justify-between font-bold cursor-pointer">
+                            <div class="flex items-center"><span class="rain-letter flex items-center justify-center w-8 h-8 rounded-full bg-stone-300 mr-4">A</span> Acknowledge</div>
+                        </div>
+                        <div class="rain-text text-stone-600 pl-12">Allow the feeling to be there without pushing it away or judging it. Let it exist. This is not approval, it is acceptance of what is.</div>
+                    </div>
+                    <div class="rain-step bg-stone-100 p-4 rounded-lg">
+                        <div class="flex items-center justify-between font-bold cursor-pointer">
+                            <div class="flex items-center"><span class="rain-letter flex items-center justify-center w-8 h-8 rounded-full bg-stone-300 mr-4">I</span> Investigate</div>
+                        </div>
+                        <div class="rain-text text-stone-600 pl-12">Gently explore the feeling with curiosity. Where do you feel it in your body? What thoughts are connected to it? What does it need?</div>
+                    </div>
+                    <div class="rain-step bg-stone-100 p-4 rounded-lg">
+                        <div class="flex items-center justify-between font-bold cursor-pointer">
+                            <div class="flex items-center"><span class="rain-letter flex items-center justify-center w-8 h-8 rounded-full bg-stone-300 mr-4">N</span> Non-Identification</div>
+                        </div>
+                        <div class="rain-text text-stone-600 pl-12">Realize that this feeling or thought is not who you are. It is a passing event. You are the sky, not the cloud. This creates space and freedom.</div>
+                    </div>
+                </div>
+            </div>
+        `,
+                body: `
+            <div class="text-center">
+                 <h3 class="font-bold text-xl text-stone-800 mb-2">The Body as a Crucible</h3>
+                 <p class="text-stone-600 mb-6 max-w-xl mx-auto">Mental fortitude is not built in comfort. Rigorous physical training teaches endurance, discipline, and the ability to face discomfort, directly forging mental resilience.</p>
+                 <div class="chart-container mb-4">
+                    <canvas id="balanceChart"></canvas>
+                 </div>
+                 <button id="train-btn" class="px-6 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition">Embrace the Hardship</button>
+            </div>
+            <div class="mt-8 text-center">
+                <h4 class="font-bold text-lg text-stone-800">The Core Metaphor: Focus Breaks the Brick</h4>
+                <p class="text-stone-600 mb-4 max-w-xl mx-auto">This feat is achieved not through brute strength, but sheer, unwavering focus—making the abstract power of the mind tangible.</p>
+                <div id="brick" class="brick mx-auto">
+                  <div class="crack"></div>
+                </div>
+            </div>
+        `,
+                purpose: `
+             <div>
+                 <h3 class="font-bold text-xl text-stone-800 mb-4 text-center">The Dual Path to Purpose</h3>
+                 <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                     <div class="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-500">
+                         <h4 class="font-bold text-lg mb-2">Part 1: The Inward Journey</h4>
+                         <p class="text-stone-700">Purpose is found through deep introspection, by disconnecting from external pressures and listening to what truly resonates within. It is the act of becoming "the director of your own life."</p>
+                     </div>
+                     <div class="bg-stone-200 p-6 rounded-lg border-l-4 border-stone-500">
+                         <h4 class="font-bold text-lg mb-2">Part 2: Principled Non-Attachment</h4>
+                         <p class="text-stone-700">True attainment is not about what you have, but about letting go of over-identification with achievements or possessions. This builds a stable inner foundation immune to external praise or criticism.</p>
+                     </div>
+                 </div>
+             </div>
+        `
+            };
+
+            function renderContent(tab) {
+                if (currentChart) {
+                    currentChart.destroy();
+                    currentChart = null;
+                }
+
+                solutionContent.innerHTML = contentData[tab];
+
+                if (tab === 'hindrances') {
+                    const items = document.querySelectorAll('.hindrance-item');
+                    const contentDiv = document.getElementById('hindrance-content');
+                    items.forEach(item => {
+                        item.addEventListener('click', () => {
+                            items.forEach(i => i.classList.remove('active'));
+                            item.classList.add('active');
+                            contentDiv.innerHTML = `<p class="text-lg text-amber-900">${item.dataset.content}</p>`;
+                        });
+                    });
+                }
+
+                if (tab === 'rain') {
+                    const steps = document.querySelectorAll('.rain-step');
+                    steps.forEach(step => {
+                        step.addEventListener('click', () => {
+                            if (step.classList.contains('active')) {
+                                step.classList.remove('active');
+                            } else {
+                                steps.forEach(s => s.classList.remove('active'));
+                                step.classList.add('active');
+                            }
+                        });
+                    });
+                    steps[0].classList.add('active');
+                }
+
+                if (tab === 'body') {
+                    const ctx = document.getElementById('balanceChart').getContext('2d');
+                    currentChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Mind', 'Body'],
+                            datasets: [{
+                                label: 'Strength',
+                                data: [40, 40],
+                                backgroundColor: ['#d97706', '#92400e'],
+                                borderColor: ['#b45309', '#78350f'],
+                                borderWidth: 2,
+                                borderRadius: 5
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    grid: {
+                                        color: '#e7e5e4'
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    document.getElementById('train-btn').addEventListener('click', () => {
+                        currentChart.data.datasets[0].data = [100, 100];
+                        currentChart.update();
+                    });
+
+                    document.getElementById('brick').addEventListener('click', function() {
+                        this.classList.toggle('cracked');
+                    });
+                }
+            }
+
+            solutionTabs.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const tabName = e.target.dataset.tab;
+
+                    // Update active button
+                    solutionTabs.querySelectorAll('button').forEach(btn => btn.classList.remove('active-tab'));
+                    e.target.classList.add('active-tab');
+
+                    renderContent(tabName);
+                }
+            });
+
+            // Initial render
+            solutionTabs.querySelector('button').classList.add('active-tab');
+            renderContent('hindrances');
+        });
+    </script>
+
+</body>
+
+</html>

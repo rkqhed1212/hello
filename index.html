@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Cost Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        
+        #shipping-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        #shipping-form input[type="text"],
+        #shipping-form input[type="number"],
+        #shipping-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        #shipping-form button {
+            padding: 10px 20px;
+            background: #007BFF;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #shipping-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="shipping-form">
+        <h2>Calculate Shipping Cost</h2>
+        <select id="countrycd">
+            <option value="CH">Switzerland</option>
+            <option value="AE">UAE</option>
+            <option value="BE">Belgium</option>
+            <option value="CZ">Czechia</option>
+            <option value="DE">Germany</option>
+            <option value="FI">Finland</option>
+            <option value="FR">France</option>
+            <option value="GB">UK</option>
+            <option value="HR">Croatia</option>
+            <option value="NL">Netherlands</option>
+            <option value="US">USA</option>
+        </select>
+        <select id="shippingmethod">
+            <option value="31">EMS</option>
+            <option value="12">Small Packet</option>
+            <option value="14">K-packet</option>
+        </select>
+        <input type="number" id="totweight" placeholder="Total Weight (grams)">
+        <button onclick="calculateShipping()">Calculate</button>
+        <div id="shipping-info"></div>
+    </div>
+    <script>
+        function calculateShipping() {
+            const countrycd = document.getElementById('countrycd').value;
+            const totweight = document.getElementById('totweight').value;
+            const shippingmethod = document.getElementById('shipping-method').value;
+
+            fetch('/calculate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        countrycd,
+                        totweight,
+                        shippingmethod
+                    })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "application/xml");
+                    const emsTotProcElement = xmlDoc.getElementsByTagName("emsTotProc")[0];
+
+                    const shippingInfoDiv = document.getElementById('shipping-info');
+                    if (emsTotProcElement) {
+                        const emsTotProc = emsTotProcElement.textContent.trim();
+                        shippingInfoDiv.innerHTML = `<p>Shipping Cost: ${emsTotProc}</p>`;
+                    } else {
+                        shippingInfoDiv.innerHTML = `<p style="color: red;">Shipping information not found.</p>`;
+                    }
+                })
+                .catch(error => {
+                    const shippingInfoDiv = document.getElementById('shipping-info');
+                    shippingInfoDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                });
+        }
+    </script>
+</body>
+
+</html>

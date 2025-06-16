@@ -1,0 +1,154 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact",
+      "settings": {
+        "full": true,
+        "spacing_both_ends": true,
+        "padding": "0,0",
+        "margin": "0,0",
+        "section_heading": "",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "contact_layout": "left_iconblock_form_inline",
+        "enable_gmap": false,
+        "contact_iframe_code": "",
+        "enable_contact_info": true,
+        "contactborder_color": "",
+        "contact_hvrborder_color": "",
+        "icontactheading_color": "",
+        "contacticon_bg_color": "",
+        "contacticon_color": "",
+        "contacticon_hoverbg_color": "",
+        "contacticonhover_color": "",
+        "contact_phone": false,
+        "contact_module_contact_phonetitle": "Phone",
+        "contact_icon_1": "",
+        "contact_phone1": "",
+        "contact_phone2": "Fax:  0000 - 123 - 456789",
+        "contact_module_email": true,
+        "contact_module_contact_title": "Email",
+        "contact_icon_2": "fa fa-envelope",
+        "contact_module_email1": "info@kteashop.com",
+        "contact_module_email2": "",
+        "contact_module_address": true,
+        "contact_module_address_title": "Address",
+        "contact_icon_3": "fa fa-location-arrow",
+        "contact_module_address1": "Vulkanstrasse 110C",
+        "contact_module_address2": "Zurich Switzerland",
+        "enable_contact_form": true,
+        "contact_form_title": "Contact Form"
+      }
+    },
+    "1643434663779309c8": {
+      "type": "home-brand-logos",
+      "blocks": {
+        "164343466289070edf-0": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "164343466289070edf-1": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "164343466289070edf-2": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "164343466289070edf-3": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        },
+        "164343466289070edf-4": {
+          "type": "Image",
+          "settings": {
+            "title": "Brand Name",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "164343466289070edf-0",
+        "164343466289070edf-1",
+        "164343466289070edf-2",
+        "164343466289070edf-3",
+        "164343466289070edf-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "100,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "grid": "5",
+        "block_style": "style-1",
+        "enable_box_shadow": false,
+        "column_gap": "30",
+        "border_radius": "0",
+        "block_border_color": "",
+        "block_background_color": "",
+        "enable_slider": true,
+        "enable_auto_height": false,
+        "items_per_view": 5,
+        "slider_autoplay": 1,
+        "dots": false,
+        "carousel_pagination_alignment": "center_pagination",
+        "arrows": false,
+        "nav_arrow_position": "navigation-bottom-center",
+        "center_nav_arrow_alignment": "outside_container",
+        "navigation_button_color": "",
+        "navigation_button_icon_color": "",
+        "navigation_button_hover_color": "",
+        "navigation_button_hover_icon_color": "",
+        "navigation_dot_color": "",
+        "navigation_dot_active_color": "",
+        "custom_class_name": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1643434663779309c8"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-cart-template",
+      "settings": {
+        "enable_cart_note": false
+      }
+    },
+    "1717580378ab33a5cb": {
+      "type": "apps",
+      "blocks": {
+        "bundler_custom_bundle_3DVXq3": {
+          "type": "shopify:\/\/apps\/bundler\/blocks\/custom-bundle\/7a6ae1b8-3b16-449b-8429-8bb89a62c664",
+          "settings": {
+            "shortcode": "\"bundler-target-element\" data-bndlr-ccid=\"a8wp\""
+          }
+        }
+      },
+      "block_order": [
+        "bundler_custom_bundle_3DVXq3"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1717580378ab33a5cb"
+  ]
+}

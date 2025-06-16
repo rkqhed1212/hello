@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensorium (감각의 장): A 7-Day Journey into the Korean Soul</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: A single-page, vertical visual narrative. This structure is chosen to guide the user chronologically through the curated 7-day journey, focusing on storytelling. Each "Gateway" (day) is a distinct visual chapter with a powerful hero image and detailed text, creating an immersive, magazine-like layout. This best fulfills the user's request for a separate, image-rich page with more detailed content. -->
+    <!-- Visualization & Content Choices: Journey Presentation -> Goal:Inspire/Inform -> Viz:Full-width image sections with text overlay/blocks -> Interaction:Scroll -> Justification:This is a classic and effective way to create a high-end, editorial feel. The focus is on beautiful photography and compelling narrative. No charts or complex interactions are needed; the visual and textual depth provides the core experience. The layout alternates text and images to maintain visual interest. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FBF9F1;
+            color: #333;
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gateway-hero {
+            height: 70vh;
+            position: relative;
+        }
+        
+        .gateway-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1));
+        }
+        
+        .gateway-title {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button.active {
+            color: #3A5A40;
+            border-bottom-color: #6a7754;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-white bg-cover bg-center" style="background-image: url('/Img/4.png')">;">
+        <div class="text-center px-4 z-10">
+            <h1 class="font-serif text-5xl md:text-7xl font-bold mb-4">Sensorium (감각의 장)</h1>
+            <p class="text-lg md:text-2xl max-w-3xl mx-auto text-gray-200">정으로 물들고 한으로 깊어지다</p>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-300 mt-2">A journey to be colored by Jeong and deepened by Han.</p>
+        </div>
+    </section>
+
+    <!-- Introduction and Tabs -->
+    <section class="py-20 md:py-28 bg-[#F0EBE3]">
+        <div class="container mx-auto px-6 max-w-5xl text-center">
+            <div id="tabs" class="mb-12 border-b border-gray-300 flex justify-center space-x-4 md:space-x-8">
+                <button data-tab-target="introduction" class="tab-button active py-3 px-4 font-semibold">The Journey</button>
+                <button data-tab-target="brand-story" class="tab-button py-3 px-4 font-semibold">The Story</button>
+                <button data-tab-target="reflection-table" class="tab-button py-3 px-4 font-semibold">Reflection Table</button>
+            </div>
+
+            <div id="introduction" class="tab-content active">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Finding the Roots of Identity</h2>
+                <p class="mt-6 text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">This is not a tour. It is a curated, multi-sensory journey through the untranslatable emotions that form the foundation of the Korean soul. Over seven days, you will travel through symbolic gateways, each designed to awaken a specific
+                    sense and reveal a profound aspect of Korean identity. Guided by masters of their craft, you will find your own story reflected in the heritage of a nation.</p>
+            </div>
+            <div id="brand-story" class="tab-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">From Incomplete to Whole</h2>
+                <p class="mt-6 text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">In a world of constant connection, many of us feel profoundly disconnected, or "incomplete." We seek meaning beyond the surface. The Sensorium was born from this search. It is built on the belief that a culture's deepest wisdom—its **heritage**,
+                    **traditions**, and **beliefs**—holds the key to finding our own missing pieces. This journey is a dialogue with the soul of Korea. By engaging with its living cultural masters, you don't just observe tradition; you participate in
+                    a lineage of **humanity** and **wisdom**, discovering that the path to feeling whole is paved with the rich, sensory experiences that connect us all.</p>
+            </div>
+            <div id="reflection-table" class="tab-content">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">The Seven Gateways of Reflection</h2>
+                <div class="mt-8 overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="p-3 font-semibold border-b">Gateway (Day)</th>
+                                <th class="p-3 font-semibold border-b">Dominant Sense</th>
+                                <th class="p-3 font-semibold border-b">Core Emotion</th>
+                                <th class="p-3 font-semibold border-b">Core Experience</th>
+                                <th class="p-3 font-semibold border-b">Reflection Question</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">1: Origin · 一</td>
+                                <td class="p-3">Sight</td>
+                                <td class="p-3">여유 (Yeoyu)</td>
+                                <td class="p-3">Witnessing first light over Seoul</td>
+                                <td class="p-3">“What new space for contemplation do I need to create in my life?”</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">2: Duality · 二</td>
+                                <td class="p-3">Hearing</td>
+                                <td class="p-3">눈치 (Nunchi)</td>
+                                <td class="p-3">Feeling the rhythm of a mask dance</td>
+                                <td class="p-3">“Are my senses attuned to the unspoken currents around me?”</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">3: Harmony · 三</td>
+                                <td class="p-3">Smell</td>
+                                <td class="p-3">정 (Jeong)</td>
+                                <td class="p-3">Contrasting forest and city scents</td>
+                                <td class="p-3">“With whom did I build a bond of Jeong today?”</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">4: Cycle · 五</td>
+                                <td class="p-3">Taste</td>
+                                <td class="p-3">흥 (Heung)</td>
+                                <td class="p-3">Tasting the five cardinal flavors</td>
+                                <td class="p-3">“What are the five energies that awaken my own joy?”</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">5: Trial · 七</td>
+                                <td class="p-3">Mind</td>
+                                <td class="p-3">한 (Han)</td>
+                                <td class="p-3">Channeling emotion into calligraphy</td>
+                                <td class="p-3">“What profound sorrow do I hold, and how can I transform it into art?”</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">6: Abundance · 八</td>
+                                <td class="p-3">Touch</td>
+                                <td class="p-3">멋 (Meot)</td>
+                                <td class="p-3">Shaping and glazing your own pottery</td>
+                                <td class="p-3">“How far can I extend my own innate sense of style?”</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3">7: Culmination · 九</td>
+                                <td class="p-3">Self</td>
+                                <td class="p-3">우리 (Uri)</td>
+                                <td class="p-3">Releasing a lantern among thousands</td>
+                                <td class="p-3">“At my moment of completion, who is the 'we' that will shine with me?”</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New "Journey of Reading" Section -->
+    <section class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-gray-800">Your Journey Begins Before You Depart...</h2>
+            </div>
+            <div class="text-lg text-gray-700 leading-relaxed space-y-6">
+                <p>Before you pack your bags, take a moment. Close your eyes. Can you feel it? The journey has already begun.</p>
+                <p>Imagine the **sight** of Seoul's sprawling galaxy of lights from above, a universe of stories contained in a single glance. Picture the crisp, clean line of the horizon as the very first ray of dawn cuts through the dark. This is where
+                    we begin: with the pure, uncluttered potential of sight.</p>
+                <p>Now, listen. Can you **hear** the silent tension in a room just before a story is told? Can you distinguish the commanding beat of a drum from the responsive whisper of a silk sleeve? This journey will tune your ears not just to sound,
+                    but to the unheard vibrations of human connection.</p>
+                <p>Breathe in. The **smell** of damp earth and pine on a mountain trail, a scent of ancient memory. Now, contrast it with the aroma of roasting coffee and steaming ginseng in a warm, bustling alleyway. This is the scent of *Jeong*—of bonds
+                    forged between nature and humanity.</p>
+                <p>This is not a trip you will simply observe. You will **taste** philosophy in a five-course meal. You will **touch** tradition as you shape wet clay on a wheel. You will sit in the profound silence of a temple and **feel** a thousand years
+                    of sorrow and resilience in your own heart. This journey is an invitation to inhabit your senses completely, and through them, to finally meet yourself.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- New USP Section -->
+    <section class="py-16 md:py-24 bg-[#E5E1DA]">
+        <div class="container mx-auto px-6 max-w-3xl text-center">
+            <h2 class="font-serif text-3xl md:text-5xl font-bold text-gray-800 mb-4">Our Promise: The Sensorium USP</h2>
+            <p class="text-xl text-gray-700 leading-relaxed font-semibold mb-8">Sensorium is the only journey that unlocks the soul of a culture by turning untranslatable emotions into a personal, multi-sensory experience.</p>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="bg-white/50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-2">1. Beyond Tourism, Towards Understanding</h3>
+                    <p class="text-gray-700">We bypass typical landmarks. Instead of just seeing a temple, you will sit with a monk to understand *Han*. You won't just eat Korean food; you will taste the philosophy of *Heung* with a master chef. We offer a curriculum of feelings,
+                        not facts.</p>
+                </div>
+                <div class="bg-white/50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-2">2. Access to the Inaccessible</h3>
+                    <p class="text-gray-700">Our journey grants you intimate, private audiences with a curated group of living cultural treasures—a K-Pop creative, a 70-year-old dance master, a renowned potter. These are not performances; they are personal dialogues with the
+                        keepers of Korea's cultural heritage.</p>
+                </div>
+                <div class="bg-white/50 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-2">3. A Mirror to the Self</h3>
+                    <p class="text-gray-700">This journey is ultimately about you. By exploring concepts like *Yeoyu* (space) or *Meot* (style) through the lens of Korean culture, you are given a powerful new framework to examine your own life, your own identity, and your own
+                        path to feeling whole again.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 1: Sight -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1579032338839-82998a465ed3?q=80&w=2070&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 1 (一)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Origin of Sight</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">여유 (Yeoyu)</p>
+                    <p class="mt-2 italic text-gray-600">A contemplative space in mind & time.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">Your journey begins in Seoul, where you meet a K-Pop lighting designer at Namsan Tower. Together, you will witness two profound sights: the first rays of dawn breaking over the metropolis, and later, the serene glow of the Chuseok
+                        full moon. Through the designer's eyes, you'll learn to appreciate the "blank space" before creation, finding a sensory understanding of *Yeoyu*.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A panoramic Sky Suite at the **Signiel Seoul**, offering unparalleled views of the city skyline you’ve just contemplated, creating a seamless connection between the external experience and your internal space.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>Modern Korean fine dining at **Bicena**, a Michelin-starred restaurant. The focus is on clean, artistic presentation and subtle, pure flavors that mirror the day's theme of clarity and origin.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>A private dialogue with the lighting designer on the philosophy of light and shadow in performance art, exploring how intentional voids and negative space create visual and emotional impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 2: Hearing -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1621371997973-e40d04a5898f?q=80&w=1932&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 2 (二)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Duality of Hearing</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">눈치 (Nunchi)</p>
+                    <p class="mt-2 italic text-gray-600">The art of reading unspoken currents.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">Travel to Andong Hahoe Village, a living museum of Joseon Dynasty culture. Here, you have a private audience with a 70-year-old *in-gan-mun-hwa-jae* (Living Human Treasure) of the traditional mask dance. In a private performance, you
+                        will learn to *hear* the story not through words, but through the tension and harmony of sound, attuning your senses to the unspoken social currents of *Nunchi*.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A private, impeccably restored Hanok stay at **Rakkojae Hahoe Folk Village**. Sleeping on traditional heated floors (*ondol*) grounds you in the very heritage you are experiencing.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>A traditional Andong-style dinner featuring the local specialty of salt-cured mackerel (*gan-godeungeo*) and a tasting of Andong Soju, a historically significant spirit, with the master dancer sharing stories.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>A post-performance lesson where the master breaks down the symbolic sounds of the dance—the commanding shout, the pleading drum, the rustle of silk—explaining how each sound communicates an intention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 3: Smell -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1622378345843-134b225916a2?q=80&w=2070&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 3 (三)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Harmony of Smell</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">정 (Jeong)</p>
+                    <p class="mt-2 italic text-gray-600">A deep, binding warmth and affection.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">Returning to Seoul, you ascend Bugaksan mountain with a 10-year-old eco-scout. You will learn to differentiate the autumn smells of maple, mushroom, and smoldering leaves. You then descend into the alleys of Samcheong-dong, where the
+                        scent shifts to roasting coffee and ginseng steam. This juxtaposition creates an embodied understanding of *Jeong*, the connection that builds over time.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A charming room at **Artmonstay**, a boutique art hotel nestled in the heart of Samcheong-dong, surrounded by galleries and cafes that contribute to the neighborhood's unique aromatic profile.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>A traditional tea ceremony at a hidden teahouse in Samcheong-dong, experiencing the subtle, layered fragrances of rare Korean teas like *Balhyocha* (fermented) and *Sejak* (first-flush green tea).</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>Creating a personal "scent memory" kit. You will collect small, representative items from both the mountain and the neighborhood to create a physical reminder of the day's contrasting and harmonious aromas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 4: Taste -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1974&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 5 (五)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Cycle of Taste</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">흥 (Heung)</p>
+                    <p class="mt-2 italic text-gray-600">A state of joyful, shoulder-shimmying excitement.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">In Jeonju, Korea's food capital, you are mentored by a 50s Michelin-starred chef. In a private Hanok studio, you will taste the philosophy of *Obangsaek* (five cardinal colors). A five-course meal will be constructed around the flavors
+                        and colors of autumn—pine mushroom, flower crab, pomegranate, chestnut, and acorn—awakening a deep, resonating joy, or *Heung*.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A suite at **Jeonju Hyanggyo Hotel Gung**, a luxury Hanok hotel adjacent to a Confucian school, placing you at the historical center of Korean scholarship and gastronomy.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>The five-course *Obangsaek* private dinner: White (pear-wrapped scallop), Black (squid ink noodle), Red (gochujang-glazed pork), Yellow (pumpkin porridge with chestnut foam), Green (matcha tiramisu).</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>A hands-on session where the chef deconstructs one of the five dishes, explaining the philosophical and nutritional reasoning behind the color and ingredient pairings, revealing food as a form of cosmic balance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 5: Mind -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1596701871236-a36c91a425a8?q=80&w=2070&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 7 (七)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Trial of Mind</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">한 (Han)</p>
+                    <p class="mt-2 italic text-gray-600">A profound sorrow, sublimated into art.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">You travel to Haeinsa Temple, home of the Tripitaka Koreana woodblocks. Here, you meet a 60s Seon (Zen) master to confront *Han*—not as sadness, but as a deep sorrow that fuels endurance. Under the moonlight, you will sit in seven
+                        minutes of silence before being guided through calligraphy, learning how to channel complex emotion into a single, focused act.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A private, simple, yet comfortable **Temple Stay** room at Haeinsa, offering an authentic monastic experience of quiet contemplation and removal from worldly distractions.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>***Baru Gongyang***: a formal, silent, and meditative monastic meal eaten from a traditional set of four bowls. The simple, vegetarian food is meant to be consumed with total mindfulness, appreciating its role as pure sustenance.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>The calligraphy session with the Seon master, who explains the connection between a single, controlled breath and a single, perfect brushstroke, demonstrating how discipline transforms deep emotion (*Han*) into beauty and strength.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 6: Touch -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1605200251690-3273a233f213?q=80&w=2070&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 8 (八)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Abundance of Touch</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">멋 (Meot)</p>
+                    <p class="mt-2 italic text-gray-600">An effortless, natural sense of style.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">In Icheon Pottery Village, you enter the private workshop of a 40s master potter. Your sense of touch becomes your guide. You will learn to feel the clay, and under his guidance, form your own *palgak dawan* (octagonal tea bowl). You
+                        will glaze it yourself with a unique compound made from persimmon leaf ash, creating a piece that is a physical manifestation of your own *Meot*—your innate, personal style.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A serene room at the **Eden Paradise Hotel**, a modern hotel with expansive, beautifully designed gardens, providing a space of contemporary comfort after a day of earthy, traditional craft.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>An elegant farm-to-table dinner focused on showcasing the famous Icheon rice. Each dish highlights the subtle sweetness and texture of the region's most prized agricultural product.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>The tactile process of working the clay on the wheel, feeling the form take shape under your hands, and the final, personal act of applying the unique persimmon leaf ash glaze to your creation before it is fired.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 7: Self-Reflection -->
+    <section class="gateway-hero flex items-end justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1598264251349-42b95221b644?q=80&w=2070&auto=format&fit=crop');">
+        <div class="gateway-title text-center text-white p-8">
+            <p class="text-xl font-semibold">Gateway 9 (九)</p>
+            <h2 class="font-serif text-4xl md:text-6xl font-bold">The Culmination in Self</h2>
+        </div>
+    </section>
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="grid md:grid-cols-3 gap-8 items-center mb-12">
+                <div class="md:col-span-1 text-center">
+                    <p class="font-bold text-lg text-gray-500">Emotion</p>
+                    <p class="font-serif text-4xl text-[#6a7754]">우리 (Uri)</p>
+                    <p class="mt-2 italic text-gray-600">The boundless sense of "we."</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="text-lg leading-relaxed text-gray-700">Your journey culminates at Naejangsan National Park. Your guide is a 30s mountain rescue worker. Together, you will hike and witness the nine distinct shades of crimson maple. That evening, in Jinju, you will release a paper lantern
+                        onto the Namgang river during the lantern festival. As your light joins thousands, you will feel the expansive sense of community and collective identity that is *Uri*.</p>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🏨 Accommodation</h4>
+                    <p>A river-view room at the **Golden Tulip Hotel in Jinju**, allowing you to watch the lanterns float by from the comfort of your room after the festival concludes.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">🍽️ Culinary Experience</h4>
+                    <p>A celebratory final dinner featuring Jinju's specialty, grilled river eel (*jang-eo gui*), enjoyed at a restaurant along the banks of the Namgang river.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg border-b pb-2 mb-2">✨ Core Experience</h4>
+                    <p>The act of writing your personal wish on a lantern and releasing it onto the river. Watching your individual light become part of a magnificent, flowing tapestry of thousands of others is the ultimate sensory embodiment of *Uri*.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.getElementById('tabs');
+            if (tabs) {
+                tabs.addEventListener('click', (e) => {
+                    if (e.target.matches('.tab-button')) {
+                        const targetId = e.target.dataset.tabTarget;
+
+                        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+
+                        document.querySelectorAll('.tab-content').forEach(content => {
+                            content.classList.remove('active');
+                            if (content.id === targetId) {
+                                content.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

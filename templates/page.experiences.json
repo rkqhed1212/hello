@@ -1,0 +1,115 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+      }
+    },
+    "home_grid_banner_DD8KeK": {
+      "type": "home-grid-banner",
+      "blocks": {
+        "content_fERYBP": {
+          "type": "content",
+          "settings": {
+            "block_image": "shopify:\/\/shop_images\/1_be538395-2219-482b-aa45-6c624fc5703e.png",
+            "show_image": true,
+            "block_title": "Tea Omakase",
+            "block_sub_title": "[오마차] 티 오마카세 | OMACHA",
+            "block_description": "",
+            "block_button_text": "Enter the Tea House Experience",
+            "block_button_link": "shopify:\/\/pages\/service-1",
+            "block_text_align": "text-center",
+            "content_position": "center",
+            "reverse_column": false,
+            "block_banner_bg": "",
+            "block_content_box_bg": "",
+            "block_heading_color": "",
+            "block_sub_heading_color": "",
+            "block_description_color": "",
+            "block_button_bg_color": "",
+            "block_button_text_color": "",
+            "block_button_hover_bg_color": "",
+            "block_button_hover_text_color": "",
+            "overlay_style": "use_overlay",
+            "overlay_color": "",
+            "overlay_opacity": "0.5",
+            "rotation_degree": "180"
+          }
+        },
+        "content_ghkKKE": {
+          "type": "content",
+          "settings": {
+            "block_image": "shopify:\/\/shop_images\/Tea_lab_4f030491-93f6-4aa5-8b11-deb84b10233a.png",
+            "show_image": true,
+            "block_title": "DADO Tea Lab",
+            "block_sub_title": "다도 차 연구원",
+            "block_description": "",
+            "block_button_text": "Take a Daily Break for yourself",
+            "block_button_link": "shopify:\/\/products\/dado-tea-lab",
+            "block_text_align": "text-center",
+            "content_position": "center",
+            "reverse_column": false,
+            "block_banner_bg": "",
+            "block_content_box_bg": "",
+            "block_heading_color": "",
+            "block_sub_heading_color": "",
+            "block_description_color": "",
+            "block_button_bg_color": "",
+            "block_button_text_color": "",
+            "block_button_hover_bg_color": "",
+            "block_button_hover_text_color": "",
+            "overlay_style": "use_overlay",
+            "overlay_color": "",
+            "overlay_opacity": "0.5",
+            "rotation_degree": "180"
+          }
+        }
+      },
+      "block_order": [
+        "content_fERYBP",
+        "content_ghkKKE"
+      ],
+      "settings": {
+        "full": false,
+        "spacing_both_ends": false,
+        "padding": "0,0",
+        "margin": "0,0",
+        "show_background_image": false,
+        "background_style": "none",
+        "background_size": "auto",
+        "enable_overlay": false,
+        "background_color": "",
+        "overlay_transparency": "0.5",
+        "section_heading": "Experiences",
+        "section_sub_heading": "",
+        "section_description": "",
+        "section_button_text": "",
+        "section_button_link": "shopify:\/\/pages\/tea-omakase",
+        "section_heading_color": "",
+        "section_sub_heading_color": "",
+        "section_description_color": "",
+        "section_button_bg_color": "",
+        "section_button_text_color": "",
+        "section_button_hover_bg_color": "",
+        "section_button_hover_text_color": "",
+        "heading_position": "text-center",
+        "block_banner_style": "grid",
+        "column_gap": "30",
+        "grid": "2",
+        "border_radius": "0",
+        "enable_box_shadow": false,
+        "equal_height": false,
+        "content_width": "50\/50",
+        "lap_content_width": "40\/60",
+        "overlay_style_height": 600,
+        "overlay_style_height_laptop": 500,
+        "overlay_style_height_mobile": 400,
+        "custom_class_name": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "home_grid_banner_DD8KeK"
+  ]
+}
